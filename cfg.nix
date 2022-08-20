@@ -54,7 +54,8 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    busybox
+    bluez
+    bluez-tools
     firefox
     git
     jq
