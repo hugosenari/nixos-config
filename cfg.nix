@@ -57,24 +57,14 @@
     busybox
     firefox
     git
+    jq
     meld
+    mtr
     neovim
     ripgrep
     yj
   ];
 
-  programs.command-not-found.enable  = false;
-  programs.direnv.enable             = true;
-  programs.fish.enable               = true;
-  programs.fzf.enable                = true;
-  programs.fzf.enableFishIntegration = true;
-  programs.home-manager.enable       = true;
-  programs.htop.enable               = true;
-  programs.jq.enable                 = true;
-  programs.mpv.enable                = true;
-  programs.mtr.enable                = true;
-  programs.neovim.defaultEditor      = true;
-  programs.password-store.enable     = true;
   programs.gnupg.agent.enable           = true;
   programs.gnupg.agent.enableSSHSupport = true;
 

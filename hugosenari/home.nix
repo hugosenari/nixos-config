@@ -21,10 +21,20 @@ in
   ]; 
   home.stateVersion  = "22.05";
   home.username      = "hugosenari";
+  home.sessionVariables.EDITOR = "vim";
 
   nixpkgs.config.allowUnfree = true;
 
-
+  programs.command-not-found.enable  = false;
+  programs.direnv.enable             = true;
+  programs.fish.enable               = true;
+  programs.fzf.enable                = true;
+  programs.fzf.enableFishIntegration = true;
+  programs.home-manager.enable       = true;
+  programs.htop.enable               = true;
+  programs.jq.enable                 = true;
+  programs.mpv.enable                = true;
+  programs.password-store.enable     = true;
 
   services.kbfs.enable    = true;
   services.keybase.enable = true;

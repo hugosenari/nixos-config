@@ -21,5 +21,20 @@
         })
       ];
     };
+    nixosConfigurations.T1 = inputs.nixpkgs.lib.nixosSystem {
+      system      = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules     = [
+        ./hardware/t1.nix
+        ./cfg.nix
+        inputs.home-manager.nixosModules.home-manager
+        ({ pkgs, ... }: {
+          nix.registry.nixpkgs.flake = inputs.nixpkgs;
+          home-manager.useGlobalPkgs    = true;
+          home-manager.useUserPackages  = true;
+          home-manager.users.hugosenari = import ./hugosenari/home.nix;
+        })
+      ];
+    };
   };
 }
