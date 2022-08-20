@@ -10,6 +10,7 @@
       system      = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules     = [
+        ./hardware/hp.nix
         ./configuration.nix
         inputs.home-manager.nixosModules.home-manager
         ({ pkgs, ... }: {
