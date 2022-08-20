@@ -5,36 +5,25 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
 
-  outputs = inputs: {
-    nixosConfigurations.HP = inputs.nixpkgs.lib.nixosSystem {
+  outputs = inputs: 
+  let mkOS = hardware: inputs.nixpkgs.lib.nixosSystem {
       system      = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules     = [
-        ./hardware/hp.nix
-        ./cfg.nix
+        hardware
         inputs.home-manager.nixosModules.home-manager
+        ./cfg.nix
         ({ pkgs, ... }: {
-          nix.registry.nixpkgs.flake = inputs.nixpkgs;
+          nix.registry.nixpkgs.flake    = inputs.nixpkgs;
           home-manager.useGlobalPkgs    = true;
           home-manager.useUserPackages  = true;
           home-manager.users.hugosenari = import ./hugosenari/home.nix;
         })
       ];
-    };
-    nixosConfigurations.T1 = inputs.nixpkgs.lib.nixosSystem {
-      system      = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules     = [
-        ./hardware/t1.nix
-        ./cfg.nix
-        inputs.home-manager.nixosModules.home-manager
-        ({ pkgs, ... }: {
-          nix.registry.nixpkgs.flake = inputs.nixpkgs;
-          home-manager.useGlobalPkgs    = true;
-          home-manager.useUserPackages  = true;
-          home-manager.users.hugosenari = import ./hugosenari/home.nix;
-        })
-      ];
-    };
+    }; 
+  in
+  {
+    nixosConfigurations.HP = mkOS ./hardware/hp.nix;
+    nixosConfigurations.T1 = mkOS ./hardware/t1.nix;
   };
 }
