@@ -11,7 +11,7 @@
       specialArgs = { inherit inputs; };
       modules     = [
         ./hardware/hp.nix
-        ./configuration.nix
+        ./cfg.nix
         inputs.home-manager.nixosModules.home-manager
         ({ pkgs, ... }: {
           nix.registry.nixpkgs.flake = inputs.nixpkgs;
