@@ -13,7 +13,7 @@ let
       if spec.builtin or true then
         builtins_fetchurl { inherit (spec) url sha256; name = name'; }
       else
-        pkgs.fetchurl { inherit (spec) url sha256; name = name'; };
+        pkgs.fetchurl     { inherit (spec) url sha256; name = name'; };
 
   fetch_tarball = pkgs: name: spec:
     let

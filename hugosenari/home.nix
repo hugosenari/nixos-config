@@ -28,7 +28,7 @@ in
     pkgs.xclip
   ]; 
   home.stateVersion = "22.05";
-  home.username = "hugosenari";
+  home.username     = "hugosenari";
 
   nixpkgs.config.allowUnfree = true;
 

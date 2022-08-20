@@ -8,9 +8,11 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.timeout = 1;
 
+  services.connman.enable    = true;
+  services.connman.enableVPN = true;
   networking.hostName   = "HP";
   networking.enableIPv6 = false;
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
   networking.hosts."0.0.0.0" = [
     "postgres"
     "coltrane-api"
@@ -41,7 +43,7 @@
 
   # Enable the Enlightenment Desktop Environment.
   services.xserver.desktopManager.enlightenment.enable = true;
-  services.xserver.desktopManager.gnome.enable         = true;
+  # services.xserver.desktopManager.gnome.enable         = true;
   services.xserver.displayManager.lightdm.enable       = true;
 
   # Enable acpid
@@ -80,11 +82,13 @@
     firefox
     meld
     neovim
+    enlightenment.efl
+    python39Packages.pythonefl
   ];
   # started in user sessions.
-  programs.fish.enable          = true;
-  programs.mtr.enable           = true;
-  programs.neovim.defaultEditor = true;
+  programs.fish.enable                  = true;
+  programs.mtr.enable                   = true;
+  programs.neovim.defaultEditor         = true;
   programs.gnupg.agent.enable           = true;
   programs.gnupg.agent.enableSSHSupport = true;
 
@@ -103,4 +107,6 @@
       HashKnownHosts yes
       GSSAPIAuthentication yes
   '';
+
+  virtualisation.docker.enable = true;
 }
