@@ -9,7 +9,7 @@
   let mkOS = hardware: inputs.nixpkgs.lib.nixosSystem {
       system      = "x86_64-linux";
       specialArgs = { inherit inputs; };
-      modules     = hardware + [
+      modules     = hardware ++ [
         inputs.home-manager.nixosModules.home-manager
         ./cfg.nix
         ({ pkgs, ... }: {
