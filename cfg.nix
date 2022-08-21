@@ -1,15 +1,13 @@
 { config, pkgs, lib, ... }:
 {
   networking.enableIPv6 = false;
-  networking.hosts."0.0.0.0"     = [ "postgres" "coltrane-api" ];
-  networking.hosts."69.74.69.80" = [ "dev.live.cdn.optimum.net" ];
+  networking.hosts."0.0.0.0"       = [ "postgres" "coltrane-api" ];
+  networking.hosts."69.74.69.80"   = [ "dev.live.cdn.optimum.net" ];
+  networking.hosts."192.168.0.163" = [ "hp.lilasp" ];
+  networking.hosts."192.168.0.72"  = [ "mi.lilasp" ];
 
-  # Set your time zone.
   time.timeZone      = "America/Sao_Paulo";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.utf8";
-
   i18n.extraLocaleSettings.LC_ADDRESS        = "pt_BR.utf8";
   i18n.extraLocaleSettings.LC_IDENTIFICATION = "pt_BR.utf8";
   i18n.extraLocaleSettings.LC_MEASUREMENT    = "pt_BR.utf8";
@@ -22,17 +20,13 @@
 
   services.connman.enable       = true;
   services.connman.enableVPN    = true;
-  # Enable acpid
   services.acpid.enable         = true;
-  # Enable CUPS to print documents.
   services.printing.enable      = false;
-  # Configure keymap in X11
   services.xserver.enable       = true;
   services.xserver.layout       = "br";
   services.xserver.videoDrivers = ["fbdev" "modesetting"];
   services.xserver.xkbOptions   = "caps:swapescape";
   services.xserver.xkbVariant   = "nodeadkeys";
-  # Enable the Enlightenment Desktop Environment.
   services.xserver.desktopManager.enlightenment.enable = true;
   services.xserver.displayManager.lightdm.enable       = true;
 
@@ -44,13 +38,11 @@
   services.pipewire.alsa.support32Bit = true;
   services.pipewire.pulse.enable      = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hugosenari.description  = "hugosenari";
   users.users.hugosenari.extraGroups  = [ "networkmanager" "wheel" "sudo" "lp" "docker" ];
   users.users.hugosenari.isNormalUser = true;
   users.users.hugosenari.shell        = pkgs.fish;
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -73,7 +65,6 @@
   system.stateVersion = "22.05";
   nix.extraOptions    = "experimental-features = nix-command flakes";
   nix.package         = pkgs.nixFlakes;
-
   nixpkgs.config.permittedInsecurePackages = ["nodejs-10.24.1" "nodejs-12.22.12" "nodejs-16.15.0"];
 
   programs.ssh.extraConfig = ''
