@@ -29,4 +29,9 @@
   # networking.interfaces.wlp3s0.useDHCP      = lib.mkDefault true;
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  services.synergy.client.autoStart     = true;
+  services.synergy.client.enable        = true;
+  services.synergy.client.screenName    = "hp";
+  services.synergy.client.serverAddress = "t1.lilasp";
 }

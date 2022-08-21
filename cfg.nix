@@ -4,6 +4,7 @@
   networking.hosts."0.0.0.0"       = [ "postgres" "coltrane-api" ];
   networking.hosts."69.74.69.80"   = [ "dev.live.cdn.optimum.net" ];
   networking.hosts."192.168.0.163" = [ "hp.lilasp" ];
+  networking.hosts."192.168.0.167" = [ "t1.lilasp" ];
   networking.hosts."192.168.0.72"  = [ "mi.lilasp" ];
 
   time.timeZone      = "America/Sao_Paulo";
@@ -24,7 +25,7 @@
   services.printing.enable      = false;
   services.xserver.enable       = true;
   services.xserver.layout       = "br";
-  services.xserver.videoDrivers = ["fbdev" "modesetting"];
+  services.xserver.useGlamor    = true;
   services.xserver.xkbOptions   = "caps:swapescape";
   services.xserver.xkbVariant   = "nodeadkeys";
   services.xserver.desktopManager.enlightenment.enable = true;

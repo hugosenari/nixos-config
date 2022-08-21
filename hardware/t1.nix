@@ -27,9 +27,14 @@
   hardware.opengl.extraPackages      = with pkgs; [vaapiIntel libvdpau-va-gl intel-media-driver];
   hardware.sensor.iio.enable         = true;
 
-  services.udev.extraHwdb = ''
+  services.udev.extraHwdb    = ''
     acpi:BOSC0200:BOSC0200:*
      ACCEL_MOUNT_MATRIX=0, 1, 0; 0, 0, 1; 1, 0, 0
   '';
+  services.synergy.server.address    = "t1.lilasp";
+  services.synergy.server.autoStart  = true;
+  services.synergy.server.enable     = true;
+  services.synergy.server.screenName = "t1";
 
+  # services.synergy.server.configFile
 }
