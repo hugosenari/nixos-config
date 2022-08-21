@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   networking.enableIPv6 = false;
+  networking.firewall.enable       = false;
   networking.hosts."0.0.0.0"       = [ "postgres" "coltrane-api" ];
   networking.hosts."69.74.69.80"   = [ "dev.live.cdn.optimum.net" ];
   networking.hosts."192.168.0.163" = [ "hp.lilasp" ];
@@ -52,12 +53,16 @@
     firefox
     git
     jq
+    lshw
+    lsof
+    inetutils
     meld
     mtr
     neovim
+    pulseaudio
+    quicksynergy
     ripgrep
     yj
-    lshw
   ];
 
   programs.gnupg.agent.enable           = true;
