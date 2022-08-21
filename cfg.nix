@@ -64,6 +64,7 @@
     neovim
     ripgrep
     yj
+    lshw
   ];
 
   programs.gnupg.agent.enable           = true;
