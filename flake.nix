@@ -9,8 +9,7 @@
   let mkOS = hardware: inputs.nixpkgs.lib.nixosSystem {
       system      = "x86_64-linux";
       specialArgs = { inherit inputs; };
-      modules     = [
-        hardware
+      modules     = hardware + [
         inputs.home-manager.nixosModules.home-manager
         ./cfg.nix
         ({ pkgs, ... }: {
@@ -23,7 +22,7 @@
     }; 
   in
   {
-    nixosConfigurations.HP = mkOS ./hardware/hp.nix;
-    nixosConfigurations.T1 = mkOS ./hardware/t1.nix;
+    nixosConfigurations.HP = mkOS [ ./hardware/hp.nix ./synergy/hp.nix ];
+    nixosConfigurations.T1 = mkOS [ ./hardware/t1.nix ./synergy/t1.nix ];
   };
 }

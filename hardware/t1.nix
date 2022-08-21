@@ -1,5 +1,4 @@
 # One Netbook T1
-
 { config, lib, pkgs, modulesPath, ... }:
 {
   imports     = [ "${modulesPath}/installer/scan/not-detected.nix" ];
@@ -9,6 +8,7 @@
   networking.useDHCP  = lib.mkDefault true;
 
   boot.extraModulePackages  = [ ];
+  boot.kernelParams         = [ "i915.enable_dpcd_backlight=1" "i915.force_probe=46a6" ];
   boot.kernelModules        = [ "kvm-intel" ];
   boot.initrd.availableKernelModules   = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules            = [ "i915" ];
@@ -21,38 +21,15 @@
   fileSystems."/boot/efi".fsType = "vfat";
 
   environment.variables.VDPAU_DRIVER = "va_gl";
-  powerManagement.cpuFreqGovernor    = "powersave";
+  powerManagement.cpuFreqGovernor    = "performance";
   hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
   hardware.opengl.enable             = true;
   hardware.opengl.extraPackages      = with pkgs; [vaapiIntel libvdpau-va-gl intel-media-driver];
   hardware.sensor.iio.enable         = true;
-
   services.udev.extraHwdb    = ''
     acpi:BOSC0200:BOSC0200:*
      ACCEL_MOUNT_MATRIX=0, 1, 0; 0, 0, 1; 1, 0, 0
   '';
-  services.synergy.server.address    = "t1.lilasp";
-  services.synergy.server.autoStart  = true;
-  services.synergy.server.enable     = true;
-  services.synergy.server.screenName = "t1";
-  services.synergy.server.configFile = builtins.toFile "synergyCfg" ''
-    section: screens
-      t1:
-      hp:
-    end
-    section: aliases
-        t1:
-          t1.lilasp
-        hp:
-          hp.lilasp
-    end
-    section: links
-       t1:
-           up = hp
-           down = hp
-       hp:
-           up = t1
-           down = t1
-    end
-  '';
+  services.xserver.videoDrivers      = [ "intel" ];
+
 }
