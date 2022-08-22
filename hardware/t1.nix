@@ -26,10 +26,9 @@
   hardware.opengl.enable             = true;
   hardware.opengl.extraPackages      = with pkgs; [vaapiIntel libvdpau-va-gl intel-media-driver];
   hardware.sensor.iio.enable         = true;
-  services.udev.extraHwdb    = ''
+  services.udev.extraHwdb            = ''
     acpi:BOSC0200:BOSC0200:*
      ACCEL_MOUNT_MATRIX=0, 1, 0; 0, 0, 1; 1, 0, 0
   '';
   services.xserver.videoDrivers      = [ "intel" ];
-
 }

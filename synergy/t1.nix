@@ -20,5 +20,11 @@
        hp:
            right = t1
     end
+    section: options
+       keystroke(control+super+right) = switchInDirection(right) # Switch screens on keypress
+       keystroke(control+super+left) = switchInDirection(left)
+    end
   '';
+
+  # t1.lilasp and hp.lilasp are configured in cfg.nix in 'networking.hosts. ...'
 }
