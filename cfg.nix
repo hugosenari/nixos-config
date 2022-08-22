@@ -52,17 +52,18 @@
     bluez-tools
     firefox
     git
+    inetutils
     jq
     lshw
     lsof
-    inetutils
     meld
     mtr
     neovim
     pulseaudio
-    quicksynergy
     ripgrep
+    xdotool
     yj
+    zip
   ];
 
   programs.gnupg.agent.enable           = true;
