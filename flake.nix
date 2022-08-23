@@ -4,7 +4,6 @@
   inputs.home-manager.url = "github:nix-community/home-manager/master";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-
   outputs = inputs: 
   let mkOS = hardware: inputs.nixpkgs.lib.nixosSystem {
       system      = "x86_64-linux";
@@ -23,6 +22,6 @@
   in
   {
     nixosConfigurations.HP = mkOS [ ./hardware/hp.nix ./synergy/hp.nix ];
-    nixosConfigurations.T1 = mkOS [ ./hardware/t1.nix ./synergy/t1.nix ];
+    nixosConfigurations.T1 = mkOS [ ./hardware/t1.nix ./synergy/t1.nix ./throw-ram-out-of-the-window.nix ];
   };
 }
