@@ -23,6 +23,7 @@
   environment.variables.VDPAU_DRIVER = "va_gl";
   powerManagement.cpuFreqGovernor    = "performance";
   hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+  hardware.bluetooth.enable          = true;
   hardware.opengl.enable             = true;
   hardware.opengl.extraPackages      = with pkgs; [vaapiIntel libvdpau-va-gl intel-media-driver];
   hardware.sensor.iio.enable         = true;
