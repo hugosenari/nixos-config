@@ -24,9 +24,6 @@
 
   networking.hostName = "HP";
   networking.useDHCP  = lib.mkDefault true;
-  # networking.interfaces.enp0s26u1u1.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp2s0.useDHCP      = lib.mkDefault true;
-  # networking.interfaces.wlp3s0.useDHCP      = lib.mkDefault true;
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

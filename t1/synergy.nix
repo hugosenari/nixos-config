@@ -26,5 +26,5 @@
     end
   '';
 
-  # t1.lilasp and hp.lilasp are configured in cfg.nix in 'networking.hosts. ...'
+  # t1.lilasp and hp.lilasp are configured in networking.nix in 'networking.hosts. ...'
 }

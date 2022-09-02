@@ -22,13 +22,8 @@
     zip
   ];
 
-  networking.enableIPv6 = false;
-  networking.firewall.enable       = false;
-  networking.hosts."0.0.0.0"       = [ "postgres" "coltrane-api" ];
-  networking.hosts."69.74.69.80"   = [ "dev.live.cdn.optimum.net" ];
-  networking.hosts."192.168.0.163" = [ "hp.lilasp" ];
-  networking.hosts."192.168.0.167" = [ "t1.lilasp" ];
-  networking.hosts."192.168.0.72"  = [ "mi.lilasp" ];
+  home-manager.useGlobalPkgs    = true;
+  home-manager.useUserPackages  = true;
 
   programs.gnupg.agent.enable           = true;
   programs.gnupg.agent.enableSSHSupport = true;
@@ -78,11 +73,6 @@
 
   sound.enable        = true;
   system.stateVersion = "22.05";
-
-  users.users.hugosenari.description  = "hugosenari";
-  users.users.hugosenari.extraGroups  = [ "networkmanager" "wheel" "sudo" "lp" "docker" ];
-  users.users.hugosenari.isNormalUser = true;
-  users.users.hugosenari.shell        = pkgs.fish;
 
   virtualisation.docker.enable = true;
 }
