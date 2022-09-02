@@ -17,7 +17,7 @@ Clone `hugosenari` directory and change for user needs.
 
 Add it to `flake.nix`.
 
-Run `nixos-rebuild switch --flake`
+Run `sudo nixos-rebuild switch --flake`
 
 ## Installing / Adding a machine
 
@@ -37,4 +37,4 @@ Add it to `flake.nix`.
 
 If required add it to `synergy.nix` config in `t1` directory.
 
-Run `nixos-rebuild switch --flake`
+Run `sudo nixos-rebuild switch --flake`
