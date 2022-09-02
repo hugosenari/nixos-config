@@ -13,7 +13,7 @@ This files and folders are:
 
 ## Adding a new user
 
-Clone `hugosenari` directory and change for user needs.
+Duplicate `hugosenari` directory and change for user needs.
 
 Add it to `flake.nix`.
 
@@ -27,7 +27,7 @@ Clone this inside `/etc/nixos`.
 
 Duplicate `hp` directory as machine name.
 
-Move hardware.nix to this new directory, replacing copied one.
+Move hardware.nix to the new directory.
 
 Add the new directory to git.
 
