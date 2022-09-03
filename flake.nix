@@ -11,7 +11,7 @@
     system      = "x86_64-linux";
   };
   in {
-    nixosConfigurations.HP = mkOS [ ./cfg.nix ./hp ./hugosenari ];
-    nixosConfigurations.T1 = mkOS [ ./cfg.nix ./t1 ./hugosenari ];
+    nixosConfigurations.HP = mkOS [ ./cfg.nix ./hp ./hugosenari ./networking.nix ];
+    nixosConfigurations.T1 = mkOS [ ./cfg.nix ./t1 ./hugosenari ./networking.nix ];
   };
 }
