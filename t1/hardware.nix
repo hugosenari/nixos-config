@@ -32,5 +32,5 @@
     acpi:BOSC0200:BOSC0200:*
      ACCEL_MOUNT_MATRIX=0, 1, 0; 0, 0, 1; 1, 0, 0
   '';
-  services.xserver.videoDrivers      = [ "intel" ];
+  # services.xserver.videoDrivers      = [ "intel" ];
 }

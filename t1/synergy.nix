@@ -16,9 +16,9 @@
     end
     section: links
        t1:
-           left = hp
+           down = hp
        hp:
-           right = t1
+           up = t1
     end
     section: options
        keystroke(control+super+right) = switchInDirection(right) # Switch screens on keypress
