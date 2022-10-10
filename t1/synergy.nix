@@ -21,8 +21,8 @@
            up = t1
     end
     section: options
-       keystroke(control+super+right) = switchInDirection(right) # Switch screens on keypress
-       keystroke(control+super+left) = switchInDirection(left)
+       keystroke(control+super+up) = switchInDirection(up) # Switch screens on keypress
+       keystroke(control+super+down) = switchInDirection(down)
     end
   '';
 
