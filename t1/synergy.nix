@@ -7,18 +7,24 @@
     section: screens
       t1:
       hp:
+      bo:
     end
     section: aliases
         t1:
           t1.lilasp
         hp:
           hp.lilasp
+        bo:
+          bo.lilasp
     end
     section: links
        t1:
-           down = hp
+           down  = hp
+           right = bo
        hp:
-           up = t1
+           up    = t1
+       bo:
+           left  = t1
     end
     section: options
        keystroke(control+super+up) = switchInDirection(up) # Switch screens on keypress
