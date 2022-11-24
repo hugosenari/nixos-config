@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 {
+  imports = [ ./nixcfg.nix ];
+
   environment.systemPackages = with pkgs; [
     bluez
     bluez-tools
@@ -22,8 +24,6 @@
     zip
   ];
 
-  home-manager.useGlobalPkgs    = true;
-  home-manager.useUserPackages  = true;
 
   programs.gnupg.agent.enable           = true;
   programs.gnupg.agent.enableSSHSupport = true;
@@ -50,10 +50,6 @@
 
   nix.extraOptions = "experimental-features = nix-command flakes";
   nix.package      = pkgs.nixFlakes;
-  nixpkgs.config.allowUnfree               = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "nodejs-10.24.1" "nodejs-12.22.12" "nodejs-16.15.0"];
-
   security.rtkit.enable       = true;
   services.acpid.enable       = true;
   services.connman.enable     = true;

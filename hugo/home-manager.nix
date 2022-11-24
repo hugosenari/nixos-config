@@ -2,7 +2,7 @@
 let sources = import ./nix/sources.nix;
 in
 {
-  imports = [ ./git.nix ./nvim.nix ];
+  imports = [ ../nixcfg.nix ./git.nix ./nvim.nix ];
 
   home.stateVersion  = "22.05";
   home.packages      = [
