@@ -21,7 +21,7 @@
     nixosConfigurations.HP = mkOS [ ./cfg.nix ./hp ./hugosenari ./networking.nix ];
     nixosConfigurations.T1 = mkOS [ ./cfg.nix ./t1 ./hugosenari ./networking.nix ];
     homeConfigurations = mapHM {
-      "hugo.s.ribeiro@wpteng279" = [ ./hugo.s.ribeiro/hugo.s.ribeiro.nix ];
+      "hugo.s.ribeiro@wpteng279" = [ ./hugo.s.ribeiro/home-manager.nix ];
     };
   };
 }
