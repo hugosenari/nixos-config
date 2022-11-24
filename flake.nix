@@ -5,16 +5,18 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = inputs: 
-  let 
-    mkOS  = modules: inputs.nixpkgs.lib.nixosSystem {
+  let
+    system = "x86_64-linux";
+    mkOS   = modules: inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
       modules     = [ inputs.home-manager.nixosModules.home-manager ] ++ modules;
       specialArgs = { inherit inputs; };
-      system      = "x86_64-linux";
     };
-    mkHM  = modules: inputs.home-manager.lib.homeManagerConfiguration {
+    mkHM   = modules: inputs.home-manager.lib.homeManagerConfiguration {
       inherit modules;
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
     };
-    mapHM = builtins.mapAttrs (user: modules: mkHM modules);
+    mapHM  = builtins.mapAttrs (user: modules: mkHM modules);
   in {
     nixosConfigurations.HP = mkOS [ ./cfg.nix ./hp ./hugosenari ./networking.nix ];
     nixosConfigurations.T1 = mkOS [ ./cfg.nix ./t1 ./hugosenari ./networking.nix ];
