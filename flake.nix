@@ -1,8 +1,10 @@
 {
   # inputs.nixpkgs.url      = "github:NixOs/nixpkgs/nixos-22.05";
   inputs.nixpkgs.url      = "github:NixOs/nixpkgs";  # unstable branch
+  inputs.unfpkgs.url      = "github:numtide/nixpkgs-unfree";  
   inputs.home-manager.url = "github:nix-community/home-manager/master";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.home-manager.inputs.nixpkgs.follows = "unfpkgs";
+
 
   outputs = inputs: 
   let
