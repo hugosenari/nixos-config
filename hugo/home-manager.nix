@@ -17,6 +17,7 @@ in
   ]; 
   home.sessionVariables.EDITOR       = "vim";
   nixpkgs.config.allowUnfree         = true;
+  nixpkgs.config.allowUnfreePredicate= (pkg: true);
   programs.command-not-found.enable  = false;
   programs.direnv.enable             = true;
   programs.fish.enable               = true;
