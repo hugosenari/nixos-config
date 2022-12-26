@@ -1,7 +1,5 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [ ./nixcfg.nix ];
-
   environment.systemPackages = with pkgs; [
     bluez
     bluez-tools
@@ -50,6 +48,7 @@
 
   nix.extraOptions = "experimental-features = nix-command flakes";
   nix.package      = pkgs.nixFlakes;
+  nix.trustedUsers = [ "root" "hugosenari" ];
   security.rtkit.enable       = true;
   services.acpid.enable       = true;
   services.connman.enable     = true;

@@ -1,10 +1,8 @@
 {
-  # inputs.nixpkgs.url      = "github:NixOs/nixpkgs/nixos-22.05";
-  inputs.nixpkgs.url      = "github:NixOs/nixpkgs";  # unstable branch
-  inputs.unfpkgs.url      = "github:numtide/nixpkgs-unfree";  
+  inputs.nixpkgs.url      = "github:NixOs/nixpkgs/nixos-22.11";
+  #inputs.nixpkgs.url     = "github:NixOs/nixpkgs";  # unstable branch
   inputs.home-manager.url = "github:nix-community/home-manager/master";
-  inputs.home-manager.inputs.nixpkgs.follows = "unfpkgs";
-
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = inputs: 
   let
@@ -16,7 +14,8 @@
     };
     mkHM   = modules: inputs.home-manager.lib.homeManagerConfiguration {
       inherit modules;
-      pkgs = inputs.nixpkgs.legacyPackages.${system};
+      pkgs        = inputs.nixpkgs.legacyPackages.${system};
+      specialArgs = { inherit inputs; };
     };
     mapHM  = builtins.mapAttrs (user: modules: mkHM modules);
   in {

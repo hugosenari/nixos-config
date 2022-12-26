@@ -2,7 +2,7 @@
 let sources = import ./nix/sources.nix;
 in
 {
-  imports = [ ../nixcfg.nix ./git.nix ./nvim.nix ];
+  imports = [ ./git.nix ./nvim.nix ];
 
   home.stateVersion  = "22.05";
   home.packages      = [
@@ -12,7 +12,6 @@ in
     pkgs.keybase-gui
     pkgs.openconnect
     pkgs.tdesktop
-    pkgs.teams
     pkgs.xclip
   ]; 
   home.sessionVariables.EDITOR       = "vim";
