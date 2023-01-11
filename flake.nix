@@ -15,7 +15,6 @@
     mkHM   = modules: inputs.home-manager.lib.homeManagerConfiguration {
       inherit modules;
       pkgs        = inputs.nixpkgs.legacyPackages.${system};
-      specialArgs = { inherit inputs; };
     };
     mapHM  = builtins.mapAttrs (user: modules: mkHM modules);
   in {
