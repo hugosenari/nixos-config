@@ -23,13 +23,13 @@
     };
     cd-lib = inputs.cd.lib pkgs;
     cd     = cd-lib.spec {
-      agents.T1 = cd-lib.nixos       inputs.self.nixosModules.T1;
-      agents.HP = cd-lib.nixos       inputs.self.nixosModules.HP;
-      agents.BO = cd-lib.homeManager inputs.self.homeModules.BO;
+      agents.T1 = cd-lib.nixos           inputs.self.nixosModules.T1;
+      agents.HP = cd-lib.nixos           inputs.self.nixosModules.HP;
+      agents.BO = cd-lib.homeManager { } inputs.self.homeModules.BO;
     };
   in {
     homeConfigurations."hugo.s.ribeiro@wpteng279"  = mkHM [ inputs.self.homeModules.BO ];
-    homeModules.BO.imports   = ./hugo.s.ribeiro/home-manager.nix;
+    homeModules.BO.imports   = [ ./hugo.s.ribeiro/home-manager.nix ];
     nixosConfigurations.HP   = mkOS inputs.self.nixosModules.HP;
     nixosConfigurations.T1   = mkOS inputs.self.nixosModules.T1;
     nixosModules.HP.imports  = [ inputs.self.nixosModules.cfg ./hp ];
