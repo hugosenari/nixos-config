@@ -23,16 +23,18 @@
     };
     cd-lib = inputs.cd.lib pkgs;
     cd     = cd-lib.spec {
-      agents.T1 = cd-lib.nixos inputs.self.nixosModules.T1;
-      agents.HP = cd-lib.nixos inputs.self.nixosModules.HP;
+      agents.T1 = cd-lib.nixos       inputs.self.nixosModules.T1;
+      agents.HP = cd-lib.nixos       inputs.self.nixosModules.HP;
+      agents.BO = cd-lib.homeManager imputs.self.homeModules.BO;
     };
   in {
-    packages.${system}.cd    = cd;
-    nixosModules.cfg.imports = [ inputs.home-manager.nixosModules.home-manager ./cfg.nix ./hugosenari ./networking.nix ];
-    nixosModules.HP.imports  = [ inputs.self.nixosModules.cfg ./hp ];
-    nixosModules.T1.imports  = [ inputs.self.nixosModules.cfg ./t1 ];
+    homeConfigurations."hugo.s.ribeiro@wpteng279"  = mkHM [ self.homeModules.BO ];
+    homeModules.BO.imports   = ./hugo.s.ribeiro/home-manager.nix;
     nixosConfigurations.HP   = mkOS inputs.self.nixosModules.HP;
     nixosConfigurations.T1   = mkOS inputs.self.nixosModules.T1;
-    homeConfigurations."hugo.s.ribeiro@wpteng279" = mkHM [ ./hugo.s.ribeiro/home-manager.nix ];
+    nixosModules.HP.imports  = [ inputs.self.nixosModules.cfg ./hp ];
+    nixosModules.T1.imports  = [ inputs.self.nixosModules.cfg ./t1 ];
+    nixosModules.cfg.imports = [ inputs.home-manager.nixosModules.home-manager ./cfg.nix ./hugosenari ./networking.nix ];
+    packages.${system}.cd    = cd;
   };
 }

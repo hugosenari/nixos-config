@@ -3,6 +3,8 @@
   home.homeDirectory = "/home/hugo.s.ribeiro";
   home.username      = "hugo.s.ribeiro";
 
+  services.cachix-agent.enable         = true;
+  services.cachix-agent.name           = "BO";
   systemd.user.services.synergy-client = {
     Unit.Description  = "Synergy client";
     Unit.After        = [ "graphical-session.target" ];
