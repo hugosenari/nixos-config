@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url      = "github:NixOs/nixpkgs/nixos-22.11";
+  inputs.nixpkgs.url      = "github:NixOs/nixpkgs/release-22.11";
   #inputs.nixpkgs.url     = "github:NixOs/nixpkgs";  # unstable branch
   inputs.home-manager.url = "github:nix-community/home-manager/master";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";

@@ -49,11 +49,12 @@
   nix.extraOptions = "experimental-features = nix-command flakes";
   nix.package      = pkgs.nixFlakes;
   nix.trustedUsers = [ "root" "hugosenari" ];
-  security.rtkit.enable       = true;
-  services.acpid.enable       = true;
-  services.connman.enable     = true;
-  services.connman.enableVPN  = true;
-  services.pipewire.enable    = true;
+  security.rtkit.enable        = true;
+  services.acpid.enable        = true;
+  services.cachix-agent.enable = true;
+  services.connman.enable      = true;
+  services.connman.enableVPN   = true;
+  services.pipewire.enable     = true;
   services.pipewire.alsa.enable       = true;
   services.pipewire.alsa.support32Bit = true;
   services.pipewire.pulse.enable      = true;
