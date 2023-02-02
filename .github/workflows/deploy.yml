@@ -22,6 +22,12 @@ jobs:
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Build 
         run:  nix build -L .#cd
+      - name: Save Cache
+        id: nix-cache-save
+        uses: actions/cache/save@v3
+        with:
+          path: /nix/store
+          key: ${{ steps.nix-cache.outputs.cache-primary-key }}
       - name: Deploy
         env:
           CACHIX_ACTIVATE_TOKEN: "${{ secrets.CACHIX_ACTIVATE_TOKEN }}"
@@ -30,9 +36,3 @@ jobs:
           cachix deploy activate --agent T1 ./result
           cachix deploy activate --agent HP ./result
           cachix deploy activate --agent BO ./result
-      - name: Save Cache
-        id: nix-cache-save
-        uses: actions/cache/save@v3
-        with:
-          path: /nix/store
-          key: ${{ steps.nix-cache.outputs.cache-primary-key }}
