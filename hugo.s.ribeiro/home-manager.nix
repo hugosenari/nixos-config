@@ -14,7 +14,7 @@
     xarchiver
     yj
     zip
-  ]
+  ];
 
   services.cachix-agent.enable         = true;
   services.cachix-agent.name           = "BO";
