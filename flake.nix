@@ -25,7 +25,7 @@
     cd     = cd-lib.spec {
       agents.T1 = cd-lib.nixos       inputs.self.nixosModules.T1;
       agents.HP = cd-lib.nixos       inputs.self.nixosModules.HP;
-      agents.BO = cd-lib.homeManager imputs.self.homeModules.BO;
+      agents.BO = cd-lib.homeManager inputs.self.homeModules.BO;
     };
   in {
     homeConfigurations."hugo.s.ribeiro@wpteng279"  = mkHM [ self.homeModules.BO ];
