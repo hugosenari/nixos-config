@@ -48,7 +48,7 @@
 
   nix.extraOptions = "experimental-features = nix-command flakes";
   nix.package      = pkgs.nixFlakes;
-  nix.trustedUsers = [ "root" "hugosenari" ];
+  nix.settings.trusted-users = [ "root" "hugosenari" ];
   security.rtkit.enable        = true;
   services.acpid.enable        = true;
   services.cachix-agent.enable = true;

@@ -2,6 +2,19 @@
   imports = [ ../hugo/home-manager.nix ];
   home.homeDirectory = "/home/hugo.s.ribeiro";
   home.username      = "hugo.s.ribeiro";
+  home.packages      = with pkgs; [
+    firefox
+    git
+    meld
+    mtr
+    remmina
+    ripgrep
+    unzip
+    xdotool
+    xarchiver
+    yj
+    zip
+  ]
 
   services.cachix-agent.enable         = true;
   services.cachix-agent.name           = "BO";
