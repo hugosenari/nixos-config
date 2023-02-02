@@ -28,7 +28,7 @@
       agents.BO = cd-lib.homeManager inputs.self.homeModules.BO;
     };
   in {
-    homeConfigurations."hugo.s.ribeiro@wpteng279"  = mkHM [ self.homeModules.BO ];
+    homeConfigurations."hugo.s.ribeiro@wpteng279"  = mkHM [ inputs.self.homeModules.BO ];
     homeModules.BO.imports   = ./hugo.s.ribeiro/home-manager.nix;
     nixosConfigurations.HP   = mkOS inputs.self.nixosModules.HP;
     nixosConfigurations.T1   = mkOS inputs.self.nixosModules.T1;
