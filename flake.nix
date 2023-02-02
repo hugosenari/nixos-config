@@ -1,27 +1,38 @@
 {
-  inputs.nixpkgs.url      = "github:NixOs/nixpkgs/release-22.11";
+  description             = "Hugosenari Hosts";
   #inputs.nixpkgs.url     = "github:NixOs/nixpkgs";  # unstable branch
+  inputs.nixpkgs.url      = "github:NixOs/nixpkgs/release-22.11";
   inputs.home-manager.url = "github:nix-community/home-manager/master";
+  inputs.cd.url           = "github:cachix/cachix-deploy-flake";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = inputs: 
+  outputs = inputs:
   let
     system = "x86_64-linux";
-    mkOS   = modules: inputs.nixpkgs.lib.nixosSystem {
+    pkgs = import "${inputs.nixpkgs}" {
       inherit system;
-      modules     = [ inputs.home-manager.nixosModules.home-manager ] ++ modules;
+      config.allowUnfree = true;
+    };
+    mkOS   = module: inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+      modules     = [ module ];
       specialArgs = { inherit inputs; };
     };
     mkHM   = modules: inputs.home-manager.lib.homeManagerConfiguration {
-      inherit modules;
-      pkgs        = inputs.nixpkgs.legacyPackages.${system};
+      inherit modules pkgs;
     };
-    mapHM  = builtins.mapAttrs (user: modules: mkHM modules);
+    cd-lib = inputs.cd.lib pkgs;
+    cd     = cd-lib.spec {
+      agents.T1 = cd-lib.nixos inputs.self.nixosModules.T1;
+      agents.HP = cd-lib.nixos inputs.self.nixosModules.HP;
+    };
   in {
-    nixosConfigurations.HP = mkOS [ ./cfg.nix ./hp ./hugosenari ./networking.nix ];
-    nixosConfigurations.T1 = mkOS [ ./cfg.nix ./t1 ./hugosenari ./networking.nix ];
-    homeConfigurations = mapHM {
-      "hugo.s.ribeiro@wpteng279" = [ ./hugo.s.ribeiro/home-manager.nix ];
-    };
+    packages.${system}.cd    = cd;
+    nixosModules.cfg.imports = [ inputs.home-manager.nixosModules.home-manager ./cfg.nix ./hugosenari ./networking.nix ];
+    nixosModules.HP.imports  = [ inputs.self.nixosModules.cfg ./hp ];
+    nixosModules.T1.imports  = [ inputs.self.nixosModules.cfg ./t1 ];
+    nixosConfigurations.HP   = mkOS inputs.self.nixosModules.HP;
+    nixosConfigurations.T1   = mkOS inputs.self.nixosModules.T1;
+    homeConfigurations."hugo.s.ribeiro@wpteng279" = mkHM [ ./hugo.s.ribeiro/home-manager.nix ];
   };
 }
