@@ -35,4 +35,4 @@ jobs:
           cachix push hugosenari ./result
           cachix deploy activate --agent T1 ./result
           cachix deploy activate --agent HP ./result
-          cachix deploy activate --agent BO ./result
+          # cachix deploy activate --agent BO ./result
