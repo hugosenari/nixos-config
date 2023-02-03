@@ -8,12 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run:  sudo rm -rf /opt&
-      - name: Restore Cache
-        id: nix-cache
-        uses: actions/cache/restore@v3
-        with:
-          path: /nix/store
-          key: ${{ runner.os }}-nix-store
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v18
       - uses: cachix/cachix-action@v12
@@ -22,17 +16,11 @@ jobs:
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Build 
         run:  nix build -L .#cd
-      - name: Save Cache
-        id: nix-cache-save
-        uses: actions/cache/save@v3
-        with:
-          path: /nix/store
-          key: ${{ steps.nix-cache.outputs.cache-primary-key }}
       - name: Deploy
         env:
           CACHIX_ACTIVATE_TOKEN: "${{ secrets.CACHIX_ACTIVATE_TOKEN }}"
         run: |
           cachix push hugosenari ./result
-          cachix deploy activate --agent T1 ./result
-          cachix deploy activate --agent HP ./result
-          # cachix deploy activate --agent BO ./result
+          cachix deploy activate --async --agent T1 ./result
+          cachix deploy activate --async --agent HP ./result
+          cachix deploy activate --async --agent BO ./result
