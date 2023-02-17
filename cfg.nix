@@ -60,6 +60,7 @@
   services.pipewire.pulse.enable      = true;
 
   services.printing.enable    = false;
+  services.sshd.enable        = true;
   services.xserver.enable     = true;
   services.xserver.layout     = "br";
   services.xserver.xkbOptions = "caps:swapescape";
