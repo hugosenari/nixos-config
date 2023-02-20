@@ -9,7 +9,9 @@
 
   boot.extraModulePackages  = [ ];
   boot.kernelParams         = [ 
-   "i915.enable_fbc=1" "i915.enable_psr=0" "i915.modeset=1" "i915.enable_guc=3" "i915.force_probe=46a6" ];
+    "i915.enable_fbc=1" "i915.enable_psr=0" "i915.modeset=1" "i915.enable_guc=3" "i915.force_probe=46a6"
+    "intel_idle.max_cstate=1" "i915.enable_dc=0" "ahci.mobile_lpm_policy=1"
+  ];
   boot.kernelModules        = [ "kvm-intel" ];
   boot.initrd.availableKernelModules   = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules            = [ "i915" ];
