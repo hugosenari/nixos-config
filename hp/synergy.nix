@@ -19,7 +19,7 @@
     end
     section: links
        t1:
-           right = hp
+           left  = hp
            up    = bo
        hp:
            right = t1
