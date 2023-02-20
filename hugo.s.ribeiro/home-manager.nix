@@ -21,7 +21,7 @@
   systemd.user.services.synergy-client = {
     Unit.Description  = "Synergy client";
     Unit.After        = [ "graphical-session.target" ];
-    Service.ExecStart = "${pkgs.synergy}/bin/synergyc -f -n bo t1.lilasp";
+    Service.ExecStart = "${pkgs.synergy}/bin/synergyc -f -n bo hp.lilasp";
     Service.Restart   = "on-failure";
     Service.KillMode  = "mixed";
   };
