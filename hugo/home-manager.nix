@@ -4,7 +4,7 @@ in
 {
   imports = [ ./git.nix ./nvim.nix ];
 
-  home.stateVersion  = "22.05";
+  home.stateVersion  = "22.11";
   home.packages      = [
     # (pkgs.callPackage (sources.funcoeszz + "/default.nix") {})
     # (pkgs.callPackage (sources.gmusicbrowser-nixpkgx + "/default.nix") {})
