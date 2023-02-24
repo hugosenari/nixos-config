@@ -30,8 +30,10 @@
   in {
     homeConfigurations."hugo.s.ribeiro@wpteng279"  = mkHM [ inputs.self.homeModules.BO ];
     homeModules.BO.imports   = [ ./hugo.s.ribeiro/home-manager.nix ];
+    nixosConfigurations.BO   = mkOS inputs.self.nixosModules.BO;
     nixosConfigurations.HP   = mkOS inputs.self.nixosModules.HP;
     nixosConfigurations.T1   = mkOS inputs.self.nixosModules.T1;
+    nixosModules.BO.imports  = [ inputs.self.nixosModules.cfg ./bo ];
     nixosModules.HP.imports  = [ inputs.self.nixosModules.cfg ./hp ];
     nixosModules.T1.imports  = [ inputs.self.nixosModules.cfg ./t1 ];
     nixosModules.cfg.imports = [ inputs.home-manager.nixosModules.home-manager ./cfg.nix ./hugosenari ./networking.nix ];
