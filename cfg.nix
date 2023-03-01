@@ -20,6 +20,7 @@
     xarchiver
     yj
     zip
+    cachix
   ];
 
 
