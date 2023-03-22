@@ -6,5 +6,5 @@
   users.users.hugosenari.extraGroups  = [ "networkmanager" "wheel" "sudo" "lp" "docker" ];
   users.users.hugosenari.isNormalUser = true;
   users.users.hugosenari.shell        = pkgs.fish;
-  users.users.hugosenari.packages     = [ inputs.unfree.legacyPackages.x86_64-linux.teams ];
+  # users.users.hugosenari.packages     = [ inputs.unfree.legacyPackages.x86_64-linux.teams ];
 }
