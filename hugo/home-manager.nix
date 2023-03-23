@@ -2,7 +2,7 @@
 let sources = import ./nix/sources.nix;
 in
 {
-  imports = [ ./git.nix ./nvim.nix ];
+  imports = [ ./git.nix ./nvim.nix ./kbpass.nix ./espanso.nix ];
 
   home.stateVersion  = "22.11";
   home.packages      = [
@@ -31,6 +31,8 @@ in
   programs.htop.enable               = true;
   programs.jq.enable                 = true;
   programs.mpv.enable                = true;
+  programs.nushell.enable            = true;
+  programs.nushell.envFile.source    = ./env.nu;
   programs.password-store.enable     = true;
   programs.ssh.enable                = true;
   programs.ssh.compression           = true;

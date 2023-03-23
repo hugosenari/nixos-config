@@ -1,27 +1,28 @@
 { config, pkgs, lib, ... }:
 let
-  mapToList = keyAttr: obj: lib.attrsets.mapAttrsToList
+  mapToList  = keyAttr: obj: lib.attrsets.mapAttrsToList
   (name: value: { "${keyAttr}" = name; } // value) obj;
   nameToList = mapToList "name";
-  outputVar = type: params: nameToList {
+  outputVar  = type: params: nameToList {
     output.type = type;
     output.params = params;
   };
-  now = format: outputVar "date" { inherit format; };
-  time = format: { replace = "{{output}}"; vars = now format; };
-  resultOf = args: outputVar "script" { inherit args; };
-in {
-  services.espanso.enable = true;
-  services.espanso.config.matches = mapToList "trigger" {
-    "119".replace = "11981498025";
-    "pss+".replace = "R4nd0m20O0@pa$S"; # std pass for tests
+  now        = format: outputVar "date"  { inherit format; };
+  resultOf   = cmd:    outputVar "shell" { inherit cmd;     };
+  time       = format: { replace = "{{output}}"; vars = now format; };
+  otp        = suffix: { replace = "{{output}}"; vars = resultOf "${pkgs.coreutils-full}/bin/echo ${bin}/otp    view ${suffix}"; };
+  kbp        = suffix: { replace = "{{output}}"; vars = resultOf "${pkgs.coreutils-full}/bin/echo ${bin}/bkpass get  ${suffix}"; };
+  bin        = "/etc/profiles/per-user/hugosenari/bin";
+  triggers   = mapToList "trigger" {
+    "119".replace    = "11981498025";
+    "pss+".replace   = "R4nd0m20O0@pa$S"; # std pass for tests
     "fulano".replace = "fulano da silva sauro";
 
-    "!1" = time "%C%S%u";
-    "!2" = time "%C%S%d";
-    "!3" = time "%C%S%d%u";
-    "!4" = time "%C%S%d%m";
-    "!5" = time "%C%S%d%m%u";
+    "!1"   = time "%C%S%u";
+    "!2"   = time "%C%S%d";
+    "!3"   = time "%C%S%d%u";
+    "!4"   = time "%C%S%d%m";
+    "!5"   = time "%C%S%d%m%u";
 
     "age+" = time "%d%m%Y";
     "age0" = time "%d%m2020";
@@ -33,28 +34,27 @@ in {
 
     "cep+" = time "%u%m%d%S%C";
 
-    "hugo+".replace = "hugo+{{output}}@pontte.com.br";
-    "hugo+".vars = now "%Y%m%d%H";
-    "hugo@".replace = "hugo+{{output}}@pontte.com.br";
-    "hugo@".vars = now "%Y%m%d%H%M";
-
     "hugosenari+".replace = "hugosenari+{{output}}@gmail.com";
-    "hugosenari+".vars = now "%Y%m%d%H";
-    "hugosenari@".replace = "hugosenari+{{output}}@gmail.com";
-    "hugosenari@".vars = now "%Y%m%d%H%M";
+    "hugosenari+".vars    = now "%Y%m%d%H";
 
-    "cpf+".replace = "{{output}}";
-    "cpf+".vars = resultOf [
-      "/home/hugosenari/.nix-profile/bin/fish"
-      "-c"
-      "zzcpf"
-    ];
+    "otpaltice"           = otp "altice";
+    "otpbinance"          = otp "binance";
+    "otpcoinbase"         = otp "coinbase";
+    "otpcoinbebe"         = otp "coinbebe";
+    "otpgithub"           = otp "github";
+    "otpgooglealtice"     = otp "google-altice";
+    "otphusky"            = otp "husky";
+    "otpkraken"           = otp "kraken";
+    "otpmercadobitcoin"   = otp "mercado-bitcoin";
+    "otpmercadolivre"     = otp "mercado-livre";
+    "otptabtrader"        = otp "tabtrader";
+    "otptest"             = otp "test";
+    "otpwibx"             = otp "wibx";
+    "otpzoho"             = otp "zoho";
 
-    "cnpj+".replace = "{{output}}";
-    "cnpj+".vars = resultOf [
-      "/home/hugosenari/.nix-profile/bin/fish"
-      "-c"
-      "zzcnpj"
-    ];
+    "kbpght"  = kbp "github-token";
   };
+in {
+  services.espanso.enable = true;
+  services.espanso.settings.matches = triggers;
 }
