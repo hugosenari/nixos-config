@@ -49,6 +49,8 @@
 
   nix.extraOptions = "experimental-features = nix-command flakes";
   nix.package      = pkgs.nixFlakes;
+  nix.gc.automatic = true;
+  nix.gc.randomizedDelaySec = "45min";
   nix.settings.auto-optimise-store = true;
   nix.settings.substituters        = [ "https://nix-community.cachix.org" "https://numtide.cachix.org"];
   nix.settings.trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="];
@@ -75,6 +77,11 @@
 
   sound.enable        = true;
   system.stateVersion = "22.05";
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.dates  = "2 h";
+  system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
+  system.autoUpgrade.randomizedDelaySec = "5m";
 
   virtualisation.docker.enable = true;
 }
