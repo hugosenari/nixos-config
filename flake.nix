@@ -5,8 +5,14 @@
   inputs.hm.url      = "github:nix-community/home-manager/master";
   inputs.hm.inputs.nixpkgs.follows = "nixpkgs";
 
-  nixConfig.extra-substituters        = [ "https://numtide.cachix.org" ];
-  nixConfig.extra-trusted-public-keys = [ "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE=" ];
+  nixConfig.extra-substituters        = [ 
+    "s3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com"
+    "https://numtide.cachix.org"
+  ];
+  nixConfig.extra-trusted-public-keys = [
+    "nixstore:XPnWsxFA3W5WV9nl6TFA1EhYkehVMIZOs20wuAf8A5c="
+    "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+  ];
 
   outputs = {self, hm, ...}@inputs:
   let
