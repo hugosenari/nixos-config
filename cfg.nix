@@ -62,14 +62,12 @@
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
   ];
-  nix.settings.post-build-hook     = pkgs.writeShellScript "myOwnCacheWithBlackjackAndHookers" ''
-    echo "Uploading paths" $OUT_PATHS
+  nix.settings.post-build-hook     = pkgs.writeShellScript "myOwnCacheWithBlackjackAndHooks" ''
     nix store sign --key-file /etc/nix/nixstore-key $OUT_PATHS
-    exec \
-      AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials \
-      nix copy \
-        --to 's3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' \
-        $OUT_PATHS
+    export AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials
+    exec nix copy \
+      --to 's3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' \
+      $OUT_PATHS &
   '';
   systemd.services.nix-daemon.serviceConfig.Environment = ''"AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials"'';
   nix.settings.trusted-users       = [ "root" "hugosenari" ];
