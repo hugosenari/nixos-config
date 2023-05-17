@@ -62,7 +62,7 @@
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
   ];
-  nix.settings.post-build-hook     = pkgs.writeShellScript "cacheWithBlackjackHookers" ''
+  nix.settings.post-build-hook     = pkgs.writeShellScript "myOwnCacheWithBlackjackAndHookers" ''
     echo "Uploading paths" $OUT_PATHS
     nix store sign --key-file /etc/nix/nixstore-key $OUT_PATHS
     exec nix copy --to 's3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' $OUT_PATHS
