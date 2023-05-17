@@ -83,9 +83,7 @@
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
   system.autoUpgrade.randomizedDelaySec = "5m";
   
-  systemd.services.nix-daemon.serviceConfig.Environment = ''
-    AWS_CREDENTIAL_PROFILES_FILE="/var/aws/credentials"
-  '';
+  systemd.services.nix-daemon.serviceConfig.Environment = ''AWS_CREDENTIAL_PROFILES_FILE=/var/aws/credentials'';
   
   virtualisation.docker.enable = true;
 }
