@@ -62,11 +62,12 @@
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
   ];
-  nix.settings.post-build-hook     = ''
+  nix.settings.post-build-hook     = pkgs.writeShellScriptBin "my_own_cache_with_blackjack_and_hookers" ''
     echo "Uploading paths" $OUT_PATHS
     nix store sign --key-file /etc/nix/nixstore-key $OUT_PATHS
     exec nix copy --to 's3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' $OUT_PATHS
   '';
+  systemd.services.nix-daemon.serviceConfig.Environment = ''"AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials"'';
   nix.settings.trusted-users       = [ "root" "hugosenari" ];
 
   security.rtkit.enable        = true;
@@ -95,10 +96,6 @@
   system.autoUpgrade.dates  = "2 h";
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
   system.autoUpgrade.randomizedDelaySec = "5m";
-  
-  systemd.services.nix-daemon.serviceConfig.Environment = ''
-    "AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials"
-  '';
-  
+ 
   virtualisation.docker.enable = true;
 }
