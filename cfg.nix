@@ -84,7 +84,7 @@
   system.autoUpgrade.randomizedDelaySec = "5m";
   
   systemd.services.nix-daemon.serviceConfig.Environment = ''
-    "AWS_CREDENTIAL_PROFILES_FILE=/var/aws/credentials"
+    "AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials"
   '';
   
   virtualisation.docker.enable = true;
