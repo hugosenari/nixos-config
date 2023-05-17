@@ -52,8 +52,21 @@
   nix.gc.automatic = true;
   nix.gc.randomizedDelaySec = "45min";
   nix.settings.auto-optimise-store = true;
-  nix.settings.substituters        = [ "https://nix-community.cachix.org" "https://numtide.cachix.org"];
-  nix.settings.trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="];
+  nix.settings.substituters        = [
+    "s3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com"
+    "https://nix-community.cachix.org"
+    "https://numtide.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = [ 
+    "nixstore:XPnWsxFA3W5WV9nl6TFA1EhYkehVMIZOs20wuAf8A5c="
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+  ];
+  nix.settings.post-build-hook     = ''
+    echo "Uploading paths" $OUT_PATHS
+    nix store sign --key-file /etc/nix/nixstore-key $OUT_PATHS
+    exec nix copy --to 's3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' $OUT_PATHS
+  '';
   nix.settings.trusted-users       = [ "root" "hugosenari" ];
 
   security.rtkit.enable        = true;
