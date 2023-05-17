@@ -65,7 +65,11 @@
   nix.settings.post-build-hook     = pkgs.writeShellScript "myOwnCacheWithBlackjackAndHookers" ''
     echo "Uploading paths" $OUT_PATHS
     nix store sign --key-file /etc/nix/nixstore-key $OUT_PATHS
-    exec nix copy --to 's3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' $OUT_PATHS
+    exec \
+      AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials \
+      nix copy \
+        --to 's3://nixstore?profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' \
+        $OUT_PATHS
   '';
   systemd.services.nix-daemon.serviceConfig.Environment = ''"AWS_CREDENTIAL_PROFILES_FILE=/etc/aws/credentials"'';
   nix.settings.trusted-users       = [ "root" "hugosenari" ];
