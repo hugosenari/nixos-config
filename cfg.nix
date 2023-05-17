@@ -64,12 +64,10 @@
   ];
   nix.settings.post-build-hook     = pkgs.writeShellScript "myOwnCacheWithBlackjackAndHooks" ''
     nix store sign --key-file /etc/nix/nixstore-key $OUT_PATHS
-    echo "AWS_SHARED_CREDENTIALS_FILE $AWS_SHARED_CREDENTIALS_FILE" >> /tmp/nix-build-logs.txt
     export AWS_SHARED_CREDENTIALS_FILE=/etc/aws/credentials
-    echo "AWS_SHARED_CREDENTIALS_FILE $AWS_SHARED_CREDENTIALS_FILE" >> /tmp/nix-build-logs.txt
     exec nix copy \
       --to 's3://nixstore?compression=zstd&profile=nixstore&endpoint=q4n8.or.idrivee2-24.com' \
-      $OUT_PATHS &
+      $OUT_PATHS
   '';
   systemd.services.nix-daemon.serviceConfig.Environment = ''"AWS_SHARED_CREDENTIALS_FILE=/etc/aws/credentials"'';
   nix.settings.trusted-users       = [ "root" "hugosenari" "@nixbld"];
