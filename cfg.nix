@@ -47,7 +47,7 @@
 
   hardware.pulseaudio.enable = false;
 
-  nix.extraOptions = "experimental-features = nix-command flakes";
+  nix.extraOptions = "experimental-features = nix-command flakes ca-derivations";
   nix.package      = pkgs.nixFlakes;
 
   nix.settings.trusted-users   = [ "root" "hugosenari" "@nixbld"];
