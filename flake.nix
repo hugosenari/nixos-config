@@ -17,7 +17,7 @@
     nixosConfigurations.BO   = mkOS self.nixosModules.BO;
     nixosConfigurations.HP   = mkOS self.nixosModules.HP;
     nixosConfigurations.T1   = mkOS self.nixosModules.T1;
-    nixosModules.ALL.imports = [ hm.nixosModules.home-manager ./cfg.nix ./hugosenari ./networking.nix ];
+    nixosModules.ALL.imports = [ hm.nixosModules.home-manager ./cfg.nix ./cache.nix ./hugosenari ./networking.nix ];
     nixosModules.BO.imports  = [ self.nixosModules.ALL ./bo ];
     nixosModules.HP.imports  = [ self.nixosModules.ALL ./hp ];
     nixosModules.T1.imports  = [ self.nixosModules.ALL ./t1 ];
