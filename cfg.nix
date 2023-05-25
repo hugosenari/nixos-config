@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 {
   environment.systemPackages = with pkgs; [
     bluez
@@ -48,7 +48,7 @@
   hardware.pulseaudio.enable = false;
 
   nix.extraOptions = "experimental-features = nix-command flakes ca-derivations";
-  nix.package      = pkgs.nixFlakes;
+  nix.package      = inputs.niwpkgs.legacyPackages.x86_64-linux.nixVersions.nix_2_15;
 
   nix.settings.trusted-users   = [ "root" "hugosenari" "@nixbld"];
 
@@ -78,5 +78,5 @@
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
   system.autoUpgrade.randomizedDelaySec = "5m";
  
-  virtualisation.docker.enable = true;
+  virtualisation.docker.enable = false;
 }
