@@ -1,13 +1,9 @@
 { config, pkgs, lib, ... }:
-let sources = import ./nix/sources.nix;
-in
 {
   imports = [ ./git.nix ./nvim.nix ./kbpass.nix ./espanso.nix ];
 
   home.stateVersion  = "22.11";
   home.packages      = [
-    # (pkgs.callPackage (sources.funcoeszz + "/default.nix") {})
-    # (pkgs.callPackage (sources.gmusicbrowser-nixpkgx + "/default.nix") {})
     pkgs.chromium
     pkgs.keybase-gui
     pkgs.openconnect
