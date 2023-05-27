@@ -21,8 +21,6 @@
   programs.command-not-found.enable  = false;
   programs.direnv.enable             = true;
   programs.fish.enable               = true;
-  programs.fzf.enable                = true;
-  programs.fzf.enableFishIntegration = true;
   programs.home-manager.enable       = true;
   programs.htop.enable               = true;
   programs.jq.enable                 = true;
