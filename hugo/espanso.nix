@@ -7,11 +7,11 @@ let
     output.type = type;
     output.params = params;
   };
-  now        = format: outputVar "date"  { inherit format; };
-  resultOf   = cmd:    outputVar "shell" { inherit cmd;     };
+  now        = format: outputVar "date"   { inherit format; };
+  resultOf   = args:   outputVar "script" { inherit args;   };
   time       = format: { replace = "{{output}}"; vars = now format; };
-  otp        = suffix: { replace = "{{output}}"; vars = resultOf "${pkgs.coreutils-full}/bin/echo ${bin}/otp    view ${suffix}"; };
-  kbp        = suffix: { replace = "{{output}}"; vars = resultOf "${pkgs.coreutils-full}/bin/echo ${bin}/bkpass get  ${suffix}"; };
+  otp        = suffix: { replace = "{{output}}"; vars = resultOf ["${bin}/otp"    "view" suffix]; };
+  kbp        = suffix: { replace = "{{output}}"; vars = resultOf ["${bin}/bkpass" "get"  suffix]; };
   bin        = "/etc/profiles/per-user/hugosenari/bin";
   triggers   = mapToList "trigger" {
     "119".replace    = "11981498025";

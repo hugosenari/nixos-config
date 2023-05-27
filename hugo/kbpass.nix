@@ -1,6 +1,7 @@
 { config, lib, pkgs, ...}:
 let
   otp    = pkgs.writeScriptBin "otp" ''
+    #!${pkgs.bash}/bin/bash
     CLOAK_ACCOUNTS_DIR='${config.home.homeDirectory}/keybase/private/hugosenari/otp' \
     ${pkgs.cloak}/bin/cloak $@
   '';
