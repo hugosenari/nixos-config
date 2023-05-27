@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
     bluez
@@ -48,7 +48,7 @@
   hardware.pulseaudio.enable = false;
 
   nix.extraOptions = "experimental-features = nix-command flakes ca-derivations";
-  nix.package      = inputs.niwpkgs.legacyPackages.x86_64-linux.nixVersions.nix_2_15;
+  nix.package      = pkgs.nixVersions.nix_2_15;
 
   nix.settings.trusted-users   = [ "root" "hugosenari" "@nixbld"];
 

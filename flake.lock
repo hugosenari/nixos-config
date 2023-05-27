@@ -22,29 +22,13 @@
         "type": "github"
       }
     },
-    "niwpkgs": {
-      "locked": {
-        "lastModified": 1684782344,
-        "narHash": "sha256-SHN8hPYYSX0thDrMLMWPWYulK3YFgASOrCsIL3AJ78g=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8966c43feba2c701ed624302b6a935f97bcbdf88",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-23.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1684987518,
-        "narHash": "sha256-TbK/yre5FaXH8e0HoIqnRPNv9x7n0Rqu/wP2MZfq9EM=",
+        "lastModified": 1685181878,
+        "narHash": "sha256-ooarrODAF8o9yUMy8zNVj8HvgX9VffA1Pg95j/A43jg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0da3412c910bd2b77257c94e4674cfec8667deab",
+        "rev": "43e0e088a6027ea737afe04767a3aa4ac7a09a92",
         "type": "github"
       },
       "original": {
@@ -71,7 +55,6 @@
     "root": {
       "inputs": {
         "hm": "hm",
-        "niwpkgs": "niwpkgs",
         "nixpkgs": "nixpkgs",
         "unfree": "unfree"
       }
