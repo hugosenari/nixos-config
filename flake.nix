@@ -1,6 +1,6 @@
 {
   description        = "Hugosenari Hosts";
-  #inputs.nixpkgs.url = "github:NixOS/nixpkgs/release-22.11";
+  #inputs.nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   inputs.unfree.url  = "github:numtide/nixpkgs-unfree";
   inputs.hm.url      = "github:nix-community/home-manager/master";
@@ -9,8 +9,8 @@
   outputs = {self, hm, ...}@inputs:
   let
     mkOS = module: inputs.nixpkgs.lib.nixosSystem {
-      modules     = [ module ];
-      system      = "x86_64-linux";
+      modules = [ module ];
+      system  = "x86_64-linux";
       specialArgs.inputs = inputs;
       specialArgs.unfree = inputs.unfree.x86_64-linux;
     };
