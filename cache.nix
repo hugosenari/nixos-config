@@ -4,6 +4,8 @@ let
   s3.uri   = "s3://nixstore?compression=zstd&profile=nixstore&endpoint=q4n8.or.idrivee2-24.com";    # Private S3 URI
   sig.prv  = "/etc/nix/nixstore-key";                                                               # Sign Private Key
   sig.pub  = "nixstore:XPnWsxFA3W5WV9nl6TFA1EhYkehVMIZOs20wuAf8A5c=";                               # Sign Public  Key
+  unf.uri  = "https://numtide.cachix.org";                                                          # Unfree URI
+  unf.pub  = "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE=";                   # Unfree Public Key
   Q.path   = "/run/myOwnPkgCacheUploader";                                                          # Queue
   Q.push   = pkgs.writeShellScript "myOwnCacheWithBlackjackAndHooks" "echo $OUT_PATHS > ${Q.path}"; # Queue Writer
   Q.pop    = ''                                                                                     # Queue Reader
@@ -22,8 +24,8 @@ in
   nix.gc.automatic                 = true;
   nix.gc.randomizedDelaySec        = "45min";
   nix.settings.auto-optimise-store = true;
-  nix.settings.substituters        = [ s3.uri  ];
-  nix.settings.trusted-public-keys = [ sig.pub ];
+  nix.settings.substituters        = [ s3.uri  unf.uri ];
+  nix.settings.trusted-public-keys = [ sig.pub unf.pub ];
   nix.settings.post-build-hook     = Q.push;
   systemd.services.pkgs-cache-uploader.description = "Send pkgs to private cache";
   systemd.services.pkgs-cache-uploader.enable      = true;

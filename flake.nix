@@ -6,21 +6,19 @@
   inputs.hm.url      = "github:nix-community/home-manager/master";
   inputs.hm.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = {self, hm, ...}@inputs:
-  let
-    mkOS = module: inputs.nixpkgs.lib.nixosSystem {
-      modules = [ module ];
-      system  = "x86_64-linux";
-      specialArgs.inputs = inputs;
-      specialArgs.unfree = inputs.unfree.x86_64-linux;
-    };
-  in {
-    nixosConfigurations.BO   = mkOS self.nixosModules.BO;
-    nixosConfigurations.HP   = mkOS self.nixosModules.HP;
-    nixosConfigurations.T1   = mkOS self.nixosModules.T1;
-    nixosModules.ALL.imports = [ hm.nixosModules.home-manager ./cfg.nix ./cache.nix ./hugosenari ./networking.nix ];
-    nixosModules.BO.imports  = [ self.nixosModules.ALL ./bo ];
-    nixosModules.HP.imports  = [ self.nixosModules.ALL ./hp ];
-    nixosModules.T1.imports  = [ self.nixosModules.ALL ./t1 ];
+
+
+  outputs = inputs: rec {
+    lib = import ./lib.nix inputs "x86_64-linux";
+    homeConfigurations.hugo = lib.home homeModules.hsr;
+    homeModules.hsr.imports = [ ./hugosenari/home-manager.nix ];
+
+    nixosConfigurations.BO  = lib.os nixosModules.BO;
+    nixosConfigurations.HP  = lib.os nixosModules.HP;
+    nixosConfigurations.T1  = lib.os nixosModules.T1;
+    nixosModules.BO.imports = [ nixosModules.__ ./bo ];
+    nixosModules.HP.imports = [ nixosModules.__ ./hp ];
+    nixosModules.T1.imports = [ nixosModules.__ ./t1 ];
+    nixosModules.__.imports = [ ./cfg.nix ./cache.nix ./hugosenari ./networking.nix ];
   };
 }
