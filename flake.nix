@@ -1,12 +1,10 @@
 {
   description        = "Hugosenari Hosts";
-  #inputs.nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   inputs.unfree.url  = "github:numtide/nixpkgs-unfree";
   inputs.hm.url      = "github:nix-community/home-manager/master";
   inputs.hm.inputs.nixpkgs.follows = "nixpkgs";
-
-
 
   outputs = inputs: rec {
     lib = import ./lib.nix inputs "x86_64-linux";
