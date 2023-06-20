@@ -10,6 +10,7 @@
 
   outputs = inputs: rec {
     lib = import ./lib.nix inputs "x86_64-linux";
+
     homeConfigurations.hugo = lib.home homeModules.hsr;
     homeModules.hsr.imports = [ ./hugosenari/home-manager.nix ];
 
