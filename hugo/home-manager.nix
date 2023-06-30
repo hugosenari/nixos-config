@@ -1,4 +1,15 @@
 { config, pkgs, lib, ... }:
+let
+  fish-completion-sync = {
+    name = "fish-completion-sync";
+    src  = pkgs.fetchFromGitHub {
+      owner  = "pfgray";
+      repo   = "fish-completion-sync";
+      rev    = "1c1c238768d4d451ae91c88660f00f4a2527152a";
+      sha256 = "sha256-CLFUnRV4BB08ZPydg2RtMY4NAwffrn0BlQEiSa2DwsI=";
+    };
+  };
+in
 {
   imports = [ ./git.nix ./nvim.nix ./kbpass.nix ./espanso.nix ];
 
@@ -21,6 +32,7 @@
   programs.command-not-found.enable  = false;
   programs.direnv.enable             = true;
   programs.fish.enable               = true;
+  programs.fish.plugins              = [ fish-completion-sync  ];
   programs.home-manager.enable       = true;
   programs.htop.enable               = true;
   programs.jq.enable                 = true;
