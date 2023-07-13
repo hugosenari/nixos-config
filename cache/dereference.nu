@@ -43,7 +43,7 @@ def main [
       continue
     }
 
-    print "Moving to ($remote_gc_trash)"
+    print $"Moving to ($remote_gc_trash)"
     print $paths_deleted
     ($paths_deleted
       |each {|it| $"mv '($remote_gc_roots)($it)' '($remote_gc_trash)($it)'" }

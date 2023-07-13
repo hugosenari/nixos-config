@@ -13,7 +13,6 @@
     mtr
     neovim
     pulseaudio
-    remmina
     ripgrep
     unzip
     xdotool
@@ -22,7 +21,6 @@
     zip
     cachix
   ];
-
 
   programs.gnupg.agent.enable           = true;
   programs.gnupg.agent.enableSSHSupport = true;
