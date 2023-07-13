@@ -31,9 +31,9 @@ def main [
       let gc_file = ($path.path|path split|last|str replace "(^.{0,32})-(.+)$" "$2-$1")
  
       print "Comp GC info"
-      (grep -o -HE 'nar/.+$' $"($tmp_store)/*.narinfo"
+      (grep   -o -EH 'nar/.+$' $"($tmp_store)/*.narinfo"
+        |grep -o -E  '.{32}.narinfo:nar/.+.nar.*$'
         |lines
-        |str replace --all $".+($tmp_store)/" ""
         |save --raw $"($tmp_store)/gcroots/($hostname)/($gc_file).gcinfo")
       gzip  $"($tmp_store)/gcroots/($hostname)/($gc_file).gcinfo"
 
