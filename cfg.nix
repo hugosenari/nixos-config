@@ -28,9 +28,10 @@
   programs.gnupg.agent.enableSSHSupport = true;
   programs.ssh.extraConfig              = ''
     Host *
-      SendEnv LANG LC_*
-      HashKnownHosts yes
+      AddKeysToAgent yes
       GSSAPIAuthentication yes
+      HashKnownHosts yes
+      SendEnv LANG LC_*
   '';
 
   time.timeZone      = "America/Sao_Paulo";
