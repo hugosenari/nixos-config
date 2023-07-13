@@ -1,18 +1,18 @@
 {
-  description        = "Hugosenari Hosts";
+  description         = "Hugosenari Hosts";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
-  inputs.unfree.url  = "github:numtide/nixpkgs-unfree";
-  inputs.hm.url      = "github:nix-community/home-manager/master";
+  inputs.nixpkgs.url  = "github:NixOS/nixpkgs/release-23.05";
+  inputs.unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.unfree.url   = "github:numtide/nixpkgs-unfree";
+  inputs.hm.url       = "github:nix-community/home-manager/master";
   inputs.hm.inputs.nixpkgs.follows = "nixpkgs";
-
 
   outputs = inputs: rec {
     homeModules.I.imports   = [ ./hugosenari/home-manager.nix ];
     homeConfigurations.I    = lib.home homeModules.I;
 
     nixosModules.eu.imports = [ ./hugosenari/default.nix ];
-    nixosModules.os.imports = [ ./cfg.nix ./cache.nix ./networking.nix ];
+    nixosModules.os.imports = [ ./cfg.nix ./cache ./networking.nix ];
     nixosModules.BO.imports = [ nixosModules.os  nixosModules.eu  ./bo ];
     nixosModules.HP.imports = [ nixosModules.os  nixosModules.eu  ./hp ];
     nixosModules.T1.imports = [ nixosModules.os  nixosModules.eu  ./t1 ];
