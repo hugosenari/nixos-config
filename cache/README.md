@@ -1,3 +1,4 @@
+![image](https://github.com/hugosenari/nixos-config/assets/863299/1a1d4cb3-3384-457b-bd86-248657e5cd8f)
 
 ## Why?
 
@@ -6,7 +7,7 @@ I need to setup my own nix cache because the alternatives while too good but too
 ## Features
 
 - Uses any AWS S3 API compatible
-- No additional server is required
+- Uses installed instances as Remote Garbage Collector
 - Garbage Collector based on GCRoot instead of size/age
 
 ## How it works
@@ -25,7 +26,7 @@ _Dereference_
 _Garbage Collect_
 - Download all gcinfo of gctrash/
 - If wasn't empty, also download gcinfo from gcroots
-- Filter gcinfo-trash from gcinfo-roots
+- Filter gcinfo-roots from gcinfo-trash
 - Delete
 
 ## Requirements
@@ -50,6 +51,7 @@ _Garbage Collect_
         # ... your other configs here or after
         inputs.my-own-cache-with-blackjack-and-hooks.nixosModules.my-own-cache-with-blackjack-and-hooks
         {
+          my-own-cache-with-blackjack-and-hooks.enable     = true;
           # Create the bucket/or update here if you already has one
           my-own-cache-with-blackjack-and-hooks.s3-bucket  = "nixstore";
           # Create this file for s3 client
@@ -80,4 +82,4 @@ _Garbage Collect_
 
 # Hints
 
-- Use `--profile` (and `nix profile`) to have batter names version and control
+- Use `--profile` (and `nix profile`) to have better names version and control
