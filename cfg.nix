@@ -51,7 +51,7 @@
   nix.extraOptions = "experimental-features = nix-command flakes ca-derivations";
   nix.package      = pkgs.nixVersions.nix_2_15;
   nix.gc.automatic                 = true;
-  nix.gc.randomizedDelaySec        = "45min";
+  nix.gc.randomizedDelaySec        = "46min";
   nix.settings.auto-optimise-store = true;
   nix.settings.substituters        = [ "https://numtide.cachix.org" ];
   nix.settings.trusted-public-keys = [ "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE=" ];
