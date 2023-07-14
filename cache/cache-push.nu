@@ -12,7 +12,7 @@ def main [
   watch $gcpath --recursive true --debounce-ms 5 {|op, change_path, new_path|
     let hostname = (sys|get host.hostname)
     print $"($op) ($change_path) ($new_path)"
-    if $op == "Create" or $op == "Chmod" and (not $change_path =~ $filter) {
+    if $op == "Create" or $op == "Chmod" and $change_path !~ $filter {
       print "Resolving links"
       let $path = (readlink -f $change_path|{
         path: $in,
