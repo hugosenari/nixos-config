@@ -3,7 +3,7 @@
 ## Why?
 
 There are good nix cache services (like [Cachix](https://www.cachix.org/)) or systems (like [Attic](https://docs.attic.rs/)) available, but I can't afford them.
-And to use free tier of whatever provider I found, I must keep one eye on the storage size, running collecting garbage of storage.
+And to use free tier of whatever provider I found, I must keep one eye on the storage size, running collector garbage frequently.
 Since I don't think LRU is good enough, I'll try to mimic Nix garbage collector.
 
 ## Features
