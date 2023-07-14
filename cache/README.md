@@ -2,7 +2,9 @@
 
 ## Why?
 
-I need to setup my own nix cache because the alternatives while too good but too expensive for my needs.
+There are good nix cache services (like [Cachix](https://www.cachix.org/)) or systems (like [Attic](https://docs.attic.rs/)) available, but I can't afford them.
+And to use free tier of whatever provider I found, I must keep one eye on the storage size, running collecting garbage of storage.
+Since I don't think LRU is good enough, I'll try to mimic Nix garbage collector.
 
 ## Features
 
@@ -13,21 +15,19 @@ I need to setup my own nix cache because the alternatives while too good but too
 ## How it works
 
 _Uploader_
-- Watch nix gcroot dir for new entries
-- Copy the new entry to tmpdir
-- Collect gcinfo from this entry
-- Send pkgs (nar), pkg meta (narinfo) to server like `nix copy` does
-- Send gcinfo to server in gcroots/{HOSTNAME}/{pname}-{hash}.gcinfo.gz
+- Watch nix gcroot dir for new packages
+- Copy the package and dependencies to temporary local directory with `nix copy`
+- Collect all dependencies nar and narinfo paths in a file gcroots/{HOSTNAME}/{pname}-{hash}.gcinfo.gz
+- Send pkgs (nar), pkg meta (narinfo), garbage collection info (gcinfo) to server
 
 _Dereference_
-- Every 30min, list server gcinfo
+- Every 30min, list server gcroots/{HOSTNAME}/*.gcinfo.gz
 - If they aren't in local gcroot move then to remote in gctrash/
 
-_Garbage Collect_
-- Download all gcinfo of gctrash/
-- If wasn't empty, also download gcinfo from gcroots
-- Filter gcinfo-roots from gcinfo-trash
-- Delete
+_Collect Garbage_
+- Every 1 hour, download all TrashGCInfo of gctrash/*.gcinfo.gz
+- If is't empty, also download all RootsGCInfo of gcroots/*/*.gcinfo.gz
+- Delete what is left of TrashGCInfo - RootsGCInfo
 
 ## Requirements
 
@@ -74,12 +74,12 @@ _Garbage Collect_
 
 # TODO
 
-- Battle test it
-- Move to other project
-- Option to disable dereference, and TUI to choose what move to trash
+- Battle test it,
 - Option to collect garbage that doesn't have gcinfo
+- Option to disable dereference, and
+- Commands to manually move to trash.
 
+# Notes
 
-# Hints
-
-- Use `--profile` (and `nix profile`) to have better names version and control
+- Use `--profile` (and `nix profile`) to have better names and control your GCROOT
+- AWS and other providers, charge also by traffic/operation.
