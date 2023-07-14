@@ -49,7 +49,7 @@ in
     gc-filter = lib.mkOption {
       default     = ["nixos-rebuild"];
       description = "Ignore root packages matching";
-      type        = lib.types.list;
+      type        = lib.types.listOf lib.types.str;
     };
     s3-bucket = lib.mkOption {
       default     = "nixstore";
