@@ -26,7 +26,7 @@ def main [
     
     let paths_local = (^find $gcpath -type l
       |lines
-      |each {|it| readlink -f $it|path split|last }
+      |par-each {|it| readlink -f $it|path split|last }
       |uniq
       |str replace "^(.{0,32})-(.+)\n" "$2-$1.gcinfo.gz"
     )
@@ -46,7 +46,7 @@ def main [
     print $"Moving to ($remote_gc_trash)"
     print $paths_deleted
     ($paths_deleted
-      |each {|it| $"mv '($remote_gc_roots)($it)' '($remote_gc_trash)($it)'" }
+      |par-each {|it| $"mv '($remote_gc_roots)($it)' '($remote_gc_trash)($it)'" }
       |str join "\n"
       |s5cmd
         --credentials-file $creds

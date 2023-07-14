@@ -68,7 +68,7 @@ def main [
 
 
     let delete_gcinfo = (ls -s ($"($local__gc_trash)*gcinfo.gz"|path expand)
-      |each {|it| $"rm ($remote_gc_trash)($it.name)"}
+      |par-each {|it| $"rm ($remote_gc_trash)($it.name)"}
       |str join "\n"
     )
 
@@ -76,7 +76,7 @@ def main [
       |str replace ":" "\n"
       |str join        "\n"
       |lines
-      |each {|it| $"rm ($remote_cache)($it)" }
+      |par-each {|it| $"rm ($remote_cache)($it)" }
       |str join        "\n"
     )
 
