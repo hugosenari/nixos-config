@@ -18,8 +18,8 @@ def main [
         refs: (nix path-info --recursive $change_path|lines)
       })
       
-      print $"Sign ($path.path)"
-      $path.refs|each {|pkg|
+      print $"Sign ($path.path) and deps"
+      $path.refs|par-each {|pkg|
         nix store sign --key-file $sig $pkg 
       }
 
