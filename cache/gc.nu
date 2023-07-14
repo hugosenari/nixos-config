@@ -62,10 +62,10 @@ def main [
       }
     )
 
+
     let paths_deleted = ($gctrash
       |where {|it| ($gcroots|get -i $it) != true}
     )
-
 
     let delete_gcinfo = (ls -s ($"($local__gc_trash)*gcinfo.gz"|path expand)
       |par-each {|it| $"rm ($remote_gc_trash)($it.name)"}
@@ -73,15 +73,22 @@ def main [
     )
 
     let delete_narifo = ($paths_deleted
-      |str replace ":" "\n"
-      |str join        "\n"
-      |lines
-      |par-each {|it| $"rm ($remote_cache)($it)" }
-      |str join        "\n"
+      |par-each {|it| $"rm ($remote_cache)($it)"}
+      |str join "\n"
+    )
+
+    let delete_nar    = ($paths_deleted
+      |par-each {|it| $"cat ($remote_cache)($it)"}
+      |s5cmd
+        --credentials-file $creds
+        --endpoint-url     $endpoint
+        --profile          $profile
+        run
+      |awk '/^URL:/ {print $NF};'
     )
 
     print "Deleting"
-    let delete = $delete_gcinfo + "\n" + $delete_narifo
+    let delete = delete_nar + "\n" + $delete_narifo + "\n" + $delete_gcinfo
     print $delete
 
     ($delete
@@ -92,6 +99,6 @@ def main [
         run
     )
 
-    sleep 41min
+    sleep 49min
   }
 }

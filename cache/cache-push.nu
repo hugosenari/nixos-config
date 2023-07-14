@@ -11,25 +11,27 @@ def main [
   print $"Caching ($gcpath)"
   watch $gcpath --recursive true --debounce-ms 5 {|op, change_path, new_path|
     let hostname = (sys|get host.hostname)
-    print $"($op) ($change_path) ($new_path)"
-    if $op == "Create" or $op == "Chmod" and $change_path !~ $filter {
+    let real_path = (readlink -f $change_path)
+    print $"($op) ($change_path) ($new_path) ($real_path)"
+    if $op == "Create" or $op == "Chmod" and $real_path != "" and $real_path !~ $filter {
       print "Resolving links"
-      let $path = (readlink -f $change_path|{
-        path: $in,
-        refs: (nix path-info --recursive $change_path|lines)
-      })
+      let $path = {
+        path: $real_path,
+        refs: (nix path-info --recursive $real_path|lines)
+      }
       
       print $"Sign ($path.path) and deps"
       $path.refs|par-each {|pkg|
         nix store sign --key-file $sig $pkg 
       }
 
-      let tmp_store = (mktemp -d)
+      let gc_file = ($path.path|path split|last|str replace "(^.{0,32})-(.+)$" "$2-$1")
+
+      let tmp_store = $"/tmp/($gc_file)"
       print $"Copy ($path.path) to ($tmp_store)"
       mkdir $"($tmp_store)/gcroots/($hostname)"
       nix copy --to $"file:///($tmp_store)?compression=zstd" $path.path
 
-      let gc_file = ($path.path|path split|last|str replace "(^.{0,32})-(.+)$" "$2-$1")
  
       print "Comp GC info"
       (grep   -o -EH 'nar/.+$' $"($tmp_store)/*.narinfo"

@@ -14,20 +14,27 @@ Since I don't think LRU is good enough, I'll try to mimic Nix garbage collector.
 
 ## How it works
 
-_Uploader_
+_PKG Postbuild Hook_
+- Nix post buidl hook to upload all package after build
+- One service that listen to a FIFO 
+- It runs upload in background to prevent blocking build
+
+_GCInfo Uploader_
 - Watch nix gcroot dir for new packages
-- Copy the package and dependencies to temporary local directory with `nix copy`
-- Collect all dependencies nar and narinfo paths in a file gcroots/{HOSTNAME}/{pname}-{hash}.gcinfo.gz
-- Send pkgs (nar), pkg meta (narinfo), garbage collection info (gcinfo) to server
+- Collect all dependencies nar paths in a file `{pname}-{hash}.gcinfo.gz`
+- Send garbage collection info (gcinfo) to `s3:/{bucket}/gcroots/{hostname}/`
 
 _Dereference_
-- Every 30min, list server gcroots/{HOSTNAME}/*.gcinfo.gz
-- If they aren't in local gcroot move then to remote in gctrash/
+- Every 30min, list server `s3:/{bucke}/gcroots/{HOSTNAME}/*.gcinfo.gz`
+- If they aren't in local gcroot move them to `s3:/{bucket}/gctrash/`
 
 _Collect Garbage_
-- Every 1 hour, download all TrashGCInfo of gctrash/*.gcinfo.gz
-- If is't empty, also download all RootsGCInfo of gcroots/*/*.gcinfo.gz
-- Delete what is left of TrashGCInfo - RootsGCInfo
+- Every 1 hour, download all TrashGCInfo of `s3:/{bucket}/gctrash/`
+- If is't empty, also download all RootsGCInfo of `s3:/{bucket}/gcroots/*/*.gcinfo.gz`
+- For what left of TrashGCInfo - RootsGCInfo from server
+- Get all NAR file urls
+- Delete NAR and NARINFO
+- Delete gcinfo.gz from trash
 
 ## Requirements
 

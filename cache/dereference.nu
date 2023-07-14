@@ -6,6 +6,7 @@ def main [
  --creds:    string = "credentials",
  --endpoint: string = "https://q4n8.or.idrivee2-24.com",
  --profile:  string = "nixstore",
+ --keep:     string = "(Fluggaenkoecchicebolsen)",
  --gcpath:   string = "/nix/var/nix/gcroots"
 ] {
   let hostname = (sys|get host.hostname)
@@ -22,7 +23,13 @@ def main [
       ls $remote_gc_roots
       |lines
       |str replace "(^.+) ([^ ]+)" "$2"
+      |where { |it| $it !~ $keep }
     )
+
+    if $paths_remote == [] {
+      sleep 37min
+      continue
+    }
     
     let paths_local = (^find $gcpath -type l
       |lines
