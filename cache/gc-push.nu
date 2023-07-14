@@ -21,6 +21,7 @@ def main [
       (nix path-info --recursive $real_path
         |awk '{sub(/-.+$/, ".narinfo"); sub(/^.+\\//, ""); print $1}'
         |save --raw $"/tmp/($gc_file)"
+      )
       gzip $"/tmp/($gc_file)"
 
       print $"Push /tmp/($gc_file).gz to s3://($bucket)/gcroots/($hostname)/($gc_file).gz"
