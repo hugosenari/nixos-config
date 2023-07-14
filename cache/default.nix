@@ -4,6 +4,7 @@ let
   s5cmd  = inputs.unstable.legacyPackages.${pkgs.system}.s5cmd;
   nushell= inputs.unstable.legacyPackages.${pkgs.system}.nushell;
   cfg    = config.services.my-own-cache-with-blackjack-and-hooks;
+  filter = builtins.stringsConcatSep "|" cfg.gc-filter;
   deref  = ''
     ${pkgs.nushell}/bin/nu ${./dereference.nu} \
       --bucket    "${cfg.s3-bucket}"           \
@@ -27,6 +28,7 @@ let
       --endpoint  "https://${cfg.s3-end}"      \
       --profile   "${cfg.s3-profile}"          \
       --sig       "${cfg.sig-prv}"             \
+      --filter    "(${filter})"                \
       --gcpath    "${cfg.gc-path}"
   '';
   s3_uri = "s3://${cfg.s3-bucket}?compression=zstd&profile=${cfg.s3-profile}&endpoint=${cfg.s3-end}";
@@ -43,6 +45,11 @@ in
       default     = "/nix/var/nix/gcroots";
       description = "Absolute path to use as local nix gcroot as string.";
       type        = lib.types.str;
+    };
+    gc-filter = lib.mkOption {
+      default     = ["nixos-rebuild"];
+      description = "Ignore root packages matching";
+      type        = lib.types.list;
     };
     s3-bucket = lib.mkOption {
       default     = "nixstore";

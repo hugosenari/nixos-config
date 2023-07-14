@@ -83,3 +83,4 @@ _Collect Garbage_
 
 - Use `--profile` (and `nix profile`) to have better names and control your GCROOT
 - AWS and other providers, charge also by traffic/operation.
+- We are ignoring `nixos-rebuild` because after that we have `nixos-system`

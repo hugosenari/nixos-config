@@ -5,13 +5,14 @@ def main [
  --endpoint: string = "https://q4n8.or.idrivee2-24.com",
  --profile:  string = "nixstore",
  --sig:      string = "/etc/nix/nixstore-key",
+ --filter:   string = "(nixos-rebuild)",
  --gcpath:   string = "/nix/var/nix/gcroots"
 ] {
   print $"Caching ($gcpath)"
   watch $gcpath --recursive true --debounce-ms 5 {|op, change_path, new_path|
     let hostname = (sys|get host.hostname)
     print $"($op) ($change_path) ($new_path)"
-    if $op == "Create" or $op == "Chmod" {
+    if $op == "Create" or $op == "Chmod" and (not $change_path =~ $filter) {
       print "Resolving links"
       let $path = (readlink -f $change_path|{
         path: $in,
