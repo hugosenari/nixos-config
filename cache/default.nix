@@ -4,7 +4,7 @@ let
   s5cmd  = inputs.unstable.legacyPackages.${pkgs.system}.s5cmd;
   nushell= inputs.unstable.legacyPackages.${pkgs.system}.nushell;
   cfg    = config.services.my-own-cache-with-blackjack-and-hooks;
-  filter = builtins.stringsConcatSep "|" cfg.gc-filter;
+  filter = builtins.concatStringsSep "|" cfg.gc-filter;
   deref  = ''
     ${pkgs.nushell}/bin/nu ${./dereference.nu} \
       --bucket    "${cfg.s3-bucket}"           \
