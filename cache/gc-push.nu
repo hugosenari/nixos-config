@@ -7,20 +7,23 @@ def main [
  --filter:   string = "(nixos-rebuild)",
  --gcpath:   string = "/nix/var/nix/gcroots"
 ] {
-  watch $gcpath --recursive true --debounce-ms 5 {|op, change_path, new_path|
+  watch $gcpath --recursive true {|op, change_path, new_path|
     let hostname = (sys|get host.hostname)
     let real_path = (readlink -f $change_path)
-    print $"($op) ($real_path) ($change_path) ($new_path)"
-    if $op == "Create" or $op == "Chmod" and $real_path != "" and $real_path !~ $filter {
-      let gc_file = ($real_path
-        |path basename
-        |str replace "(^.{0,32})-(.+)$" "$2-$1.gcinfo"
-      )
+    let gc_file = ($real_path
+      |path basename
+      |str replace "(^.{0,32})-(.+)$" "$2-$1.gcinfo"
+    )
 
+    print $"($op) ($real_path) ($gc_file) ($change_path)"
+    if (
+      $gc_file !~ "^ *$"   and $real_path !~ $filter  and 
+      ($op     == "Create" or  $op        == "Chmod")
+    ) {
       print "Collect GC Info"
       (nix path-info --recursive $real_path
-        |awk '{sub(/-.+$/, ".narinfo"); sub(/^.+\\//, ""); print $1}'
-        |save --raw $"/tmp/($gc_file)"
+        |awk '{sub(/-.+$/, ".narinfo"); sub(/^.+\//, ""); print $0}'
+        |save -f --raw $"/tmp/($gc_file)"
       )
       gzip $"/tmp/($gc_file)"
 
@@ -30,12 +33,11 @@ def main [
         --endpoint-url     $endpoint
         --profile          $profile
         cp
-          --no-clobber
           $"/tmp/($gc_file).gz"
           $"s3://($bucket)/gcroots/($hostname)/($gc_file).gz"
       )
 
-      rm $"/tmp/($gc_file)"
+      rm $"/tmp/($gc_file).gz"
       echo "Done"
     }
   } 

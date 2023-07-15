@@ -102,6 +102,7 @@ in
 
   config.nix.settings.substituters        = lib.mkIf cfg.enable [ s3-uri      ];
   config.nix.settings.trusted-public-keys = lib.mkIf cfg.enable [ cfg.sig-pub ];
+  config.nix.settings.post-build-hook     = lib.mkIf cfg.enable Q.push;
 
   config.systemd.services = lib.mkIf cfg.enable { 
     nix-daemon.environment.AWS_SHARED_CREDENTIALS_FILE = cfg.s3-cred;
@@ -113,13 +114,13 @@ in
     
     pkgs-own-cache-gc.description          = "Remove unused nar, narinfo, gcinfo files";
     pkgs-own-cache-gc.enable               = true;
-    pkgs-own-cache-gc.path                 = [ pkgs.gzip s5cmd ];
+    pkgs-own-cache-gc.path                 = [ pkgs.gzip s5cmd pkgs.gawk ];
     pkgs-own-cache-gc.script               = gc;
     pkgs-own-cache-gc.wantedBy             = [ "multi-user.target" ];
     
     pkgs-own-cache-gc-push.description     = "Send gcroots to private cache";
     pkgs-own-cache-gc-push.enable          = true;
-    pkgs-own-cache-gc-push.path            = [ config.nix.package pkgs.gzip s5cmd ];
+    pkgs-own-cache-gc-push.path            = [ config.nix.package pkgs.gawk pkgs.gzip s5cmd ];
     pkgs-own-cache-gc-push.script          = gc-push;
     pkgs-own-cache-gc-push.wantedBy        = [ "multi-user.target" ];
 
