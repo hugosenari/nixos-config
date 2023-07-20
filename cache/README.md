@@ -14,34 +14,32 @@ Since I don't think LRU is good enough, I'll try to mimic Nix garbage collector.
 
 ## How it works
 
-_PKG Postbuild Hook_
-- Nix post buidl hook to upload all package after build
-- One service that listen to a FIFO 
-- It runs upload in background to prevent blocking build
+_Nix Postbuild Hook_
+- Nix post build hook send to FIFO pkg path
+- One service that listen thi FIFO
+- Push to S3 in background to prevent blocking build
 
-_GCInfo Uploader_
-- Watch nix gcroot dir for new packages
-- Collect all dependencies nar paths in a file `{pname}-{hash}.gcinfo.gz`
-- Send garbage collection info (gcinfo) to `s3:/{bucket}/gcroots/{hostname}/`
+_GC(Info) Push_
+- Watch nix gcroot dir for new GC roots (like NixOS Generation)
+- Collect all dependencies narinfo paths in a file `{pname}-{hash}.gcinfo.gz`
+- Send gcinfo to `s3:/{bucket}/gcroots/{hostname}/`
 
 _Dereference_
 - Every 30min, list server `s3:/{bucke}/gcroots/{HOSTNAME}/*.gcinfo.gz`
 - If they aren't in local gcroot move them to `s3:/{bucket}/gctrash/`
 
 _Collect Garbage_
-- Every 1 hour, download all TrashGCInfo of `s3:/{bucket}/gctrash/`
-- If is't empty, also download all RootsGCInfo of `s3:/{bucket}/gcroots/*/*.gcinfo.gz`
-- For what left of TrashGCInfo - RootsGCInfo from server
+- Every 1 hour, download all gcinfo of `s3:/{bucket}/gctrash/`
+- If is't empty, also download all cfinfo of `s3:/{bucket}/gcroots/*/*.gcinfo.gz`
+- For what left of gcinfo(trash) - gcinfo(gcroots) from server
 - Get all NAR file urls
 - Delete NAR and NARINFO
-- Delete gcinfo.gz from trash
+- Delete gcinfo.gz from gctrash
 
 ## Requirements
 
-- NixOS
-- AWS S3 or alternatives
-- 2x of your closure size in disk (for tmp operations)
-
+- Local NixOS
+- AWS S3 or S3 API server
 
 ## Installation
 
