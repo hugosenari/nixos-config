@@ -20,12 +20,12 @@
     section: links
        t1:
            left  = hp
-           up    = bo
+           right = bo
        hp:
            right = t1
-           up    = bo
+           left  = bo
        bo:
-           left  = hp
+           right = hp
            down  = t1
     end
   '';
