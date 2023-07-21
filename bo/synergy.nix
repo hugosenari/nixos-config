@@ -22,11 +22,9 @@
            left  = hp
            right = bo
        hp:
-           right = t1
            left  = bo
        bo:
            right = hp
-           down  = t1
     end
   '';
 
