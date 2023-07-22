@@ -90,7 +90,7 @@
   system.stateVersion = "22.05";
 
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.dates  = "2 h";
+  system.autoUpgrade.dates  = "12:43";
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
   system.autoUpgrade.randomizedDelaySec = "5m";
  
