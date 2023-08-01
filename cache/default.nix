@@ -37,7 +37,7 @@ let
   '';
   s3-uri = "s3://${cfg.s3-bucket}?compression=zstd&profile=${cfg.s3-profile}&endpoint=${cfg.s3-end}";
   Q.path   = "/run/myOwnPkgCacheUploader";                                                          # FiFo
-  Q.push   = pkgs.writeShellScript "myOwnCacheWithGCAndHooks" "echo $OUT_PATHS > ${Q.path}"; # Queue Writer
+  Q.push   = pkgs.writeShellScript "myOwnCacheWithGCAndHooks" "echo $OUT_PATHS > ${Q.path}";        # Queue Writer
   Q.pop    = ''                                                                                     # Queue Reader
     test -e ${Q.path} || mkfifo  ${Q.path}
     tail -f ${Q.path}  | while read -r OUT_PATH; do
@@ -46,8 +46,8 @@ let
   '';
   Q.upload = pkgs.writeShellScript "myOwnPkgCacheUploader" ''                                       # Cache uploader
     echo Caching $1
-    nix store sign --key-file '${cfg.sig-prv}' "$1"
-    nix copy       --to       '${s3-uri}'      "$1"
+    nix  store sign --key-file '${cfg.sig-prv}' "$1"
+    exec nix   copy --to       '${s3-uri}'      "$1"
   '';
 in
 {
