@@ -7,6 +7,7 @@ let
   filter = builtins.concatStringsSep "|" cfg.gc-filter;
   keep   = builtins.concatStringsSep "|" cfg.gc-keep;
   deref  = ''
+    exec \
     ${pkgs.nushell}/bin/nu ${./dereference.nu} \
       --bucket    "${cfg.s3-bucket}"           \
       --creds     "${cfg.s3-cred}"             \
@@ -16,6 +17,7 @@ let
       --gcpath    "${cfg.gc-path}"
   '';
   gc     = ''
+    exec \
     ${pkgs.nushell}/bin/nu ${./gc.nu}          \
       --bucket    "${cfg.s3-bucket}"           \
       --creds     "${cfg.s3-cred}"             \
@@ -24,6 +26,7 @@ let
       --cachepath "${cfg.gc-cache}"
   '';
   gc-push = ''
+    exec \
     ${pkgs.nushell}/bin/nu ${./gc-push.nu}  \
       --bucket    "${cfg.s3-bucket}"           \
       --creds     "${cfg.s3-cred}"             \
