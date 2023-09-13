@@ -3,8 +3,8 @@
 ## Why?
 
 There are good nix cache services (like [Cachix](https://www.cachix.org/)) or systems (like [Attic](https://docs.attic.rs/)) available, but I can't afford them.
-And to use free tier of whatever provider I found, I must keep one eye on the storage size, running collector garbage frequently.
-Since I don't think LRU is good enough, I'll try to mimic Nix garbage collector.
+And to use free tier of whatever provider I found, I must keep one eye on the storage size, collecting garbage frequently.
+Since I don't think LRU is good enough, I'll try to mimic Nix Garbage Collector.
 
 ## Features
 
@@ -16,7 +16,7 @@ Since I don't think LRU is good enough, I'll try to mimic Nix garbage collector.
 
 _Nix Postbuild Hook_
 - Nix post build hook send to FIFO pkg path
-- One service that listen thi FIFO
+- One service that listen that FIFO
 - Push to S3 in background to prevent blocking build
 
 _GC(Info) Push_
@@ -79,7 +79,8 @@ _Collect Garbage_
 
 # TODO
 
-- Battle test it,
+- Blackjack
+- Battle-test,
 - Option to collect garbage that doesn't have gcinfo
 - Option to disable dereference, and
 - Commands to manually move to trash.
