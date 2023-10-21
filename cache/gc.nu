@@ -1,4 +1,7 @@
-# Cache purge
+# Remove dereferenced files
+#
+# All gcroot that has been moved to trash its references
+
 def main [
  --bucket:   string = "nixstore",
  --creds:    string = "credentials",

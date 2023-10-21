@@ -80,8 +80,8 @@ _Collect Garbage_
 # TODO
 
 - Blackjack
-- Battle-test,
-- Option to collect garbage that doesn't have gcinfo
+- Battle test it,
+- Configure gc-residual as systemd service,
 - Option to disable dereference, and
 - Commands to manually move to trash.
 
@@ -90,3 +90,4 @@ _Collect Garbage_
 - Use `--profile` (and `nix profile`) to have better names and control your GCROOT
 - AWS and other providers, charge also by traffic/operation.
 - We are ignoring `nixos-rebuild` because after that we have `nixos-system`
+- Use gc-residual.nu to remove residual files
