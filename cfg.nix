@@ -15,7 +15,6 @@
     pulseaudio
     ripgrep
     unzip
-    xdotool
     xarchiver
     yj
     zip
