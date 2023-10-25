@@ -21,6 +21,12 @@ def main [
       ($op     == "Create" or  $op        == "Chmod")
     ) {
       print "Collect GC Info"
+      let closure_size = ("drv\tclosure\n" 
+        + (nix path-info --closure-size $real_path --human-readable)
+        |from tsv -t all
+        |first
+        |get closure
+      )
       (nix path-info --recursive $real_path
         |awk '{sub(/-.+$/, ".narinfo"); sub(/^.+\//, ""); print $0}'
         |save -f --raw $"/tmp/($gc_file)"
@@ -32,6 +38,7 @@ def main [
         --credentials-file $creds
         --endpoint-url     $endpoint
         --profile          $profile
+        --metadata         $"ClosureSize=($closure_size)"
         cp
           $"/tmp/($gc_file).gz"
           $"s3://($bucket)/gcroots/($hostname)/($gc_file).gz"
