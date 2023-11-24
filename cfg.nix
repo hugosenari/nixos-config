@@ -18,7 +18,6 @@
     xarchiver
     yj
     zip
-    cachix
   ];
 
   programs.gnupg.agent.enable           = true;
@@ -53,7 +52,7 @@
   nix.settings.auto-optimise-store = true;
   nix.settings.substituters        = [ "https://numtide.cachix.org" ];
   nix.settings.trusted-public-keys = [ "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE=" ];
-  nix.settings.trusted-users       = [ "root" "hugosenari" "@nixbld"];
+  nix.settings.trusted-users       = [ "root" "hugosenari" "@nixbld" ];
   nix.registry.nixpkgs.from.id     = "nixpkgs";
   nix.registry.nixpkgs.from.type   = "indirect";
   nix.registry.nixpkgs.to.owner    = "NixOS";
