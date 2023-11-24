@@ -36,7 +36,7 @@ def main [
     }
   )
 
-  print $"Listing all narinfo"
+  print $"Fetching all narinfo names"
   let narinfos = (s5cmd
     --credentials-file $creds
     --endpoint-url     $endpoint

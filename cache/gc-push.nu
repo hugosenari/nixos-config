@@ -9,16 +9,22 @@ def main [
 ] {
   watch $gcpath --recursive true {|op, change_path, new_path|
     let hostname = (sys|get host.hostname)
-    let real_path = (readlink -f $change_path)
+    let real_path = (readlink -f $new_path)
     let gc_file = ($real_path
       |path basename
-      |str replace "(^.{0,32})-(.+)$" "$2-$1.gcinfo"
+      |str replace -r "(^.{0,32})-(.+)$" "$2-$1.gcinfo"
     )
 
-    print $"($op) ($real_path) ($gc_file) ($change_path)"
+    print $"($op) ($real_path) ($gc_file) ($change_path) ($new_path)"
     if (
-      $gc_file !~ "^ *$"   and $real_path !~ $filter  and 
-      ($op     == "Create" or  $op        == "Chmod")
+      $gc_file   !~ "^ *$"   and 
+      $gc_file   !~ ".tmp-"  and
+      $real_path !~ $filter  and
+      (
+        $op == "Create" or  
+        $op == "Rename" or  
+        $op == "Chmod"
+      )
     ) {
       print "Collect GC Info"
       let closure_size = ("drv\tclosure\n" 
@@ -38,14 +44,14 @@ def main [
         --credentials-file $creds
         --endpoint-url     $endpoint
         --profile          $profile
-        --metadata         $"ClosureSize=($closure_size)"
         cp
+          --metadata       $"ClosureSize=($closure_size)"
           $"/tmp/($gc_file).gz"
           $"s3://($bucket)/gcroots/($hostname)/($gc_file).gz"
       )
 
       rm $"/tmp/($gc_file).gz"
-      echo "Done"
+      print "Done"
     }
   } 
 }

@@ -22,7 +22,7 @@ def main [
       --profile          $profile
       ls $remote_gc_roots
       |lines
-      |str replace "(^.+) ([^ ]+)" "$2"
+      |str replace -r "(^.+) ([^ ]+)" "$2"
       |where { |it| $it !~ $keep }
     )
 
@@ -35,7 +35,7 @@ def main [
       |lines
       |par-each {|it| readlink -f $it|path split|last }
       |uniq
-      |str replace "^(.{0,32})-(.+)\n" "$2-$1.gcinfo.gz"
+      |str replace -r "^(.{0,32})-(.+)\n" "$2-$1.gcinfo.gz"
     )
     
     let paths_deleted = ($paths_remote ++ $paths_local
