@@ -56,5 +56,5 @@ let
   };
 in {
   services.espanso.enable = true;
-  # services.espanso.settings.matches = triggers;
+  services.espanso.matches.base.matches = triggers;
 }
