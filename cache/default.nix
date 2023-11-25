@@ -1,7 +1,6 @@
 {pkgs, config, inputs, lib, ...}:
 let
-  # NixOS 23.05 uses s5cmd 2.0 that doesn't have --credentials param
-  s5cmd  = inputs.unstable.legacyPackages.${pkgs.system}.s5cmd;
+  s5cmd  = pkgs.s5cmd;
   cfg    = config.services.my-own-cache-with-blackjack-and-hooks;
   filter = builtins.concatStringsSep "|" cfg.gc-filter;
   keep   = builtins.concatStringsSep "|" cfg.gc-keep;
