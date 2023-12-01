@@ -20,6 +20,7 @@
     zip
   ];
 
+  programs.fuse.userAllowOther          = true;  # my kbsf wont work without it
   programs.gnupg.agent.enable           = true;
   programs.gnupg.agent.enableSSHSupport = true;
   programs.ssh.extraConfig              = ''
