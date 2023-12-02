@@ -12,7 +12,7 @@
     homeConfigurations.I    = lib.home homeModules.I;
 
     nixosModules.eu.imports = [ ./hugosenari/default.nix ];
-    nixosModules.os.imports = [ ./cfg.nix ./cache ./networking.nix   ];
+    nixosModules.os.imports = [ ./cfg.nix ./cache ./networking.nix ];
     nixosModules.BO.imports = [ nixosModules.os nixosModules.eu ./bo ];
     nixosModules.HP.imports = [ nixosModules.os nixosModules.eu ./hp ];
     nixosModules.T1.imports = [ nixosModules.os nixosModules.eu ./t1 ];

@@ -18,6 +18,7 @@
     xarchiver
     yj
     zip
+    pam_usb
   ];
 
   programs.gnupg.agent.enable           = true;
@@ -84,6 +85,11 @@
   services.xserver.xkbVariant = "nodeadkeys";
   services.xserver.desktopManager.enlightenment.enable = true;
   services.xserver.displayManager.lightdm.enable       = true;
+  services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
+  services.xserver.displayManager.lightdm.greeters.gtk.extraConfig = ''
+    indicators =  ~host;~spacer;~clock;~spacer;~layout;~language;~session;~a11y;~power
+    keyboard = ${pkgs.onboard}/bin/onboard
+  '';
 
   sound.enable        = true;
   system.stateVersion = "23.11";
