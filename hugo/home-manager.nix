@@ -13,7 +13,7 @@ in
 {
   imports = [ ./git.nix ./nvim.nix ./kbpass.nix ./espanso.nix ];
 
-  home.stateVersion  = "22.11";
+  home.stateVersion  = "23.11";
   home.packages      = [
     pkgs.chromium
     pkgs.keybase-gui
@@ -43,6 +43,7 @@ in
   programs.ssh.enable                = true;
   programs.ssh.compression           = true;
   services.kbfs.enable               = true;
+  systemd.user.services.kbfs.Service.PrivateTmp = lib.mkForce false; # KBFS fail with true
   services.keybase.enable            = true;
   xdg.enable = true;
 }

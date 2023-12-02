@@ -20,7 +20,6 @@
     zip
   ];
 
-  programs.fuse.userAllowOther          = true;  # my kbsf wont work without it
   programs.gnupg.agent.enable           = true;
   programs.gnupg.agent.enableSSHSupport = true;
   programs.ssh.extraConfig              = ''
@@ -87,7 +86,7 @@
   services.xserver.displayManager.lightdm.enable       = true;
 
   sound.enable        = true;
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.11";
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates  = "12:43";
