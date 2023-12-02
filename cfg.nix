@@ -18,7 +18,6 @@
     xarchiver
     yj
     zip
-    pam_usb
   ];
 
   programs.gnupg.agent.enable           = true;
