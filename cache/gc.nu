@@ -91,7 +91,7 @@ def main [
     )
 
     print "Deleting"
-    let delete = delete_nar + "\n" + $delete_narifo + "\n" + $delete_gcinfo
+    let delete = $delete_nar + "\n" + $delete_narifo + "\n" + $delete_gcinfo
     print $delete
 
     ($delete
