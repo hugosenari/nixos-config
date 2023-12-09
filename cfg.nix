@@ -93,7 +93,7 @@
   system.stateVersion = "23.11";
 
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.dates  = "*:1/2";
+  system.autoUpgrade.dates  = "*-*-* *:30:00";
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
   system.autoUpgrade.randomizedDelaySec = "5m";
  
