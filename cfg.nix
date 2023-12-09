@@ -95,6 +95,7 @@
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates  = "*-*-* *:30:00";
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
+  system.autoUpgrade.flags  = ["--refresh"];
   system.autoUpgrade.randomizedDelaySec = "5m";
  
   virtualisation.docker.enable = false;
