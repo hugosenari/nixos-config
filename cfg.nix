@@ -45,7 +45,6 @@
   hardware.pulseaudio.enable = false;
 
   nix.extraOptions = "experimental-features = nix-command flakes ca-derivations";
-  nix.package      = pkgs.nixVersions.nix_2_15;
   nix.gc.automatic                 = true;
   nix.gc.randomizedDelaySec        = "46min";
   nix.gc.dates                     = "weekly";
@@ -94,7 +93,7 @@
   system.stateVersion = "23.11";
 
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.dates  = "12:43";
+  system.autoUpgrade.dates  = "30min";
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
   system.autoUpgrade.randomizedDelaySec = "5m";
  
