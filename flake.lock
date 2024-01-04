@@ -3,7 +3,7 @@
     "hm": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ]
       },
       "locked": {
@@ -55,7 +55,8 @@
       "inputs": {
         "hm": "hm",
         "nixpkgs": "nixpkgs",
-        "unfree": "unfree"
+        "unfree": "unfree",
+        "unstable": "unstable"
       }
     },
     "unfree": {
@@ -73,6 +74,22 @@
       "original": {
         "owner": "numtide",
         "repo": "nixpkgs-unfree",
+        "type": "github"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1704194953,
+        "narHash": "sha256-RtDKd8Mynhe5CFnVT8s0/0yqtWFMM9LmCzXv/YKxnq4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bd645e8668ec6612439a9ee7e71f7eac4099d4f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     }

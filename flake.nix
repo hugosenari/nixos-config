@@ -2,10 +2,10 @@
   description         = "Hugosenari Hosts";
 
   inputs.nixpkgs.url  = "github:NixOS/nixpkgs/release-23.11";
-  #inputs.nixpkgs.url  = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.unfree.url   = "github:numtide/nixpkgs-unfree";
   inputs.hm.url       = "github:nix-community/home-manager/master";
-  inputs.hm.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.hm.inputs.nixpkgs.follows = "unstable";
 
   outputs = inputs: rec {
     homeModules.I.imports   = [ ./hugosenari/home-manager.nix ];
