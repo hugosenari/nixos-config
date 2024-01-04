@@ -30,7 +30,7 @@
 
     lib.home = cfg: inputs.hm.lib.homeManagerConfiguration {
       modules = [ cfg ];
-      pkgs    = inputs.nixpkgs.legacyPackages.x86_64-linux;
+      pkgs    = inputs.unstable.legacyPackages.x86_64-linux;
       extraSpecialArgs.inputs = inputs;
       extraSpecialArgs.unfree = inputs.unfree.x86_64-linux;
     };
