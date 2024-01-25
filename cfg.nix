@@ -70,6 +70,7 @@
   services.acpid.enable        = true;
   services.connman.enable      = true;
   services.connman.enableVPN   = true;
+  services.connman.extraFlags  = [ "--nodnsproxy" ];
   services.pipewire.enable     = true;
   services.pipewire.alsa.enable       = true;
   services.pipewire.alsa.support32Bit = true;
