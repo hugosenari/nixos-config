@@ -1,4 +1,5 @@
 {
+  services.nscd.enable  = false;
   networking.enableIPv6 = false;
   networking.firewall.enable       = false;
   networking.hosts."192.168.0.163" = [ "hp.lilasp" ];
