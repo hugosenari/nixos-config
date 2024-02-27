@@ -87,7 +87,7 @@
   services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
   services.xserver.displayManager.lightdm.greeters.gtk.extraConfig = ''
     indicators =  ~host;~spacer;~clock;~spacer;~layout;~language;~session;~a11y;~power
-    keyboard = ${pkgs.onboard}/bin/onboard
+    keyboard = ${pkgs.CuboCore.corekeyboard}/bin/corekeyboard
   '';
 
   sound.enable        = true;
