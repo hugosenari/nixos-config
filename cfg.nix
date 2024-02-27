@@ -87,7 +87,8 @@
   services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
   services.xserver.displayManager.lightdm.greeters.gtk.extraConfig = ''
     indicators =  ~host;~spacer;~clock;~spacer;~layout;~language;~session;~a11y;~power
-    keyboard = ${pkgs.CuboCore.corekeyboard}/bin/corekeyboard'';
+    keyboard = ${pkgs.onboard}/bin/onboard
+  ''; #        ${pkgs.CuboCore.corekeyboard}/bin/corekeyboard is better but failed to work with lightdm + X
 
   sound.enable        = true;
   system.stateVersion = "23.11";
