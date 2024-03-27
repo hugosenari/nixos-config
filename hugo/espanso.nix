@@ -11,7 +11,7 @@ let
   resultOf   = args:   outputVar "script" { inherit args;   };
   time       = format: { replace = "{{output}}"; vars = now format; };
   otp        = suffix: { replace = "{{output}}"; vars = resultOf ["${bin}/otp"    "view" suffix]; };
-  kbp        = suffix: { replace = "{{output}}"; vars = resultOf ["${bin}/bkpass" "get"  suffix]; };
+  kbp        = suffix: { replace = "{{output}}"; vars = resultOf ["${bin}/kbpass" "get"  suffix]; };
   bin        = "/etc/profiles/per-user/hugosenari/bin";
   triggers   = mapToList "trigger" {
     "119".replace    = "11981498025";
