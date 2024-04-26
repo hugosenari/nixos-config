@@ -10,10 +10,10 @@ in
   networking.hosts."192.168.0.167" = [ "t1.lilasp" ];
   networking.hosts."192.168.0.72"  = [ "bo.lilasp" ];
   networking.hosts."192.168.0.73"  = [ "mi.lilasp" ];
-  environment.etc.hosts.source = lib.mkDefault null;
-  environment.etc."hosts.d/system".source = pkgs.concatText "hosts" cfg.hostFiles;
-  system.activationScripts.hosts.text =
+  environment.etc."hosts.d/1_system".source = pkgs.concatText "hosts" cfg.hostFiles;
+  system.activationScripts.shosts.text =
     ''
+      rm  /etc/hosts
       cat /etc/hosts.d/* 2>/dev/null >/etc/hosts || true
     '';
 }
