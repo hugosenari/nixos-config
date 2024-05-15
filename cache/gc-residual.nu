@@ -4,7 +4,7 @@
 
 def main [
  --bucket:   string = "nixstore",
- --creds:    string = "credentials",
+ --creds:    string = "/etc/aws/credentials",
  --endpoint: string = "https://q4n8.or.idrivee2-24.com",
  --profile:  string = "nixstore",
  --cachepath:string = "/tmp/nixgc.cache/"

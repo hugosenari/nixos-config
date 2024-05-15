@@ -81,7 +81,7 @@ _Collect Garbage_
 
 - Blackjack
 - Battle test it,
-- Configure gc-residual as systemd service,
+- Add an option to configure gc-residual time,
 - Option to disable dereference, and
 - Commands to manually move to trash.
 

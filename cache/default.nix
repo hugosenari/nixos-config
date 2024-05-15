@@ -33,6 +33,15 @@ let
       --filter    "'(${filter})'"              \
       --gcpath    "${cfg.gc-path}"
   '';
+  gc-residual = ''
+    exec \
+    ${pkgs.nushell}/bin/nu ${./gc-residual.nu} \
+      --bucket    "${cfg.s3-bucket}"           \
+      --creds     "${cfg.s3-cred}"             \
+      --endpoint  "https://${cfg.s3-end}"      \
+      --profile   "${cfg.s3-profile}"          \
+      --cachepath "${cfg.gc-path}"
+  '';
   s3-uri = "s3://${cfg.s3-bucket}?compression=zstd&profile=${cfg.s3-profile}&endpoint=${cfg.s3-end}";
   Q.path   = "/run/myOwnPkgCacheUploader";                                                          # FiFo
   Q.push   = pkgs.writeShellScript "myOwnCacheWithGCAndHooks" "echo $OUT_PATHS > ${Q.path}";        # Queue Writer
@@ -132,5 +141,17 @@ in
     pkgs-own-cache-uploader.wantedBy       = [ "multi-user.target" ];
     pkgs-own-cache-uploader.environment.CACHE_Q_PATH                = Q.path;
     pkgs-own-cache-uploader.environment.AWS_SHARED_CREDENTIALS_FILE = cfg.s3-cred;
+
+    pkgs-own-cache-residual.description    = "Remove residual cache";
+    pkgs-own-cache-residual.enable         = true;
+    pkgs-own-cache-residual.path           = [ pkgs.gawk s5cmd ];
+    pkgs-own-cache-residual.script         = gc-residual;
+    pkgs-own-cache-residual.serviceConfig.type = true;
+  };
+  config.systemd.timers = lib.mkIf cfg.enable {
+    pkgs-own-cache-residual.description    = "Remove residual cache";
+    pkgs-own-cache-residual.wantedBy       = [ "timers.target" ];
+    pkgs-own-cache-residual.requires       = ["pkgs-own-cache-residual.service"];
+    pkgs-own-cache-residual.timerConfig.OnCalendar = "*-*-* 13:00:00";
   };
 }
