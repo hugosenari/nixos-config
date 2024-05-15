@@ -146,7 +146,7 @@ in
     pkgs-own-cache-residual.enable         = true;
     pkgs-own-cache-residual.path           = [ pkgs.gawk s5cmd ];
     pkgs-own-cache-residual.script         = gc-residual;
-    pkgs-own-cache-residual.serviceConfig.type = true;
+    pkgs-own-cache-residual.serviceConfig.Type = "oneshot";
   };
   config.systemd.timers = lib.mkIf cfg.enable {
     pkgs-own-cache-residual.description    = "Remove residual cache";
