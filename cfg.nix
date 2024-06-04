@@ -79,9 +79,9 @@
   services.printing.enable    = false;
   services.sshd.enable        = true;
   services.xserver.enable     = true;
-  services.xserver.layout     = "br";
-  services.xserver.xkbOptions = "caps:swapescape";
-  services.xserver.xkbVariant = "nodeadkeys";
+  services.xserver.xkb.layout     = "br";
+  services.xserver.xkb.options = "caps:swapescape";
+  services.xserver.xkb.variant = "nodeadkeys";
   services.xserver.desktopManager.enlightenment.enable = true;
   services.xserver.displayManager.lightdm.enable       = true;
   services.xserver.displayManager.lightdm.greeters.gtk.enable = true;

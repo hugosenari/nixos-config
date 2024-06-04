@@ -1,7 +1,7 @@
 {
   description         = "Hugosenari Hosts";
 
-  inputs.nixpkgs.url  = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url  = "github:NixOS/nixpkgs/release-24.05";
   #inputs.unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.unfree.url   = "github:numtide/nixpkgs-unfree";
   inputs.hm.url       = "github:nix-community/home-manager/master";
