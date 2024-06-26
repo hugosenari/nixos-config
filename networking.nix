@@ -16,4 +16,14 @@ in
       rm  /etc/hosts
       cat /etc/hosts.d/* 2>/dev/null >/etc/hosts || true
     '';
+  networking.search = ["localhost" "lilasp"];
+  networking.nameservers = [
+    "1.1.1.1"
+    "9.9.9.9"
+    "8.8.8.8"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
+    "2804:14d:1:0:181:213:132:2"
+    "2804:14d:1:0:181:213:132:3"
+  ];
 }
