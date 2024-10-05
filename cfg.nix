@@ -59,13 +59,6 @@
   nix.registry.nixpkgs.to.type     = "github";
   nix.registry.nixpkgs.to.ref      = inputs.nixpkgs.sourceInfo.rev;
 
-  nix.registry.unfree.from.id      = "unfree";
-  nix.registry.unfree.from.type    = "indirect";
-  nix.registry.unfree.to.owner     = "numtide";
-  nix.registry.unfree.to.repo      = "nixpkgs-unfree";
-  nix.registry.unfree.to.type      = "github";
-  nix.registry.unfree.to.ref       = inputs.unfree.sourceInfo.rev;
-
   security.rtkit.enable        = true;
   services.acpid.enable        = true;
   services.connman.enable      = true;

@@ -7,5 +7,4 @@
   users.users.hugosenari.isNormalUser = true;
   users.users.hugosenari.shell        = pkgs.fish;
   programs.fish.enable                = true;
-  # users.users.hugosenari.packages     = [ inputs.unfree.legacyPackages.x86_64-linux.teams ];
 }

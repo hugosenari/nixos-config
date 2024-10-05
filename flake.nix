@@ -3,7 +3,6 @@
 
   inputs.nixpkgs.url  = "github:NixOS/nixpkgs/release-24.05";
   #inputs.unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.unfree.url   = "github:numtide/nixpkgs-unfree";
   inputs.hm.url       = "github:nix-community/home-manager/master";
   inputs.hm.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -25,14 +24,12 @@
       modules = [ inputs.hm.nixosModules.home-manager cfg ];
       system  = "x86_64-linux";
       specialArgs.inputs = inputs;
-      specialArgs.unfree = inputs.unfree.x86_64-linux;
     };
 
     lib.home = cfg: inputs.hm.lib.homeManagerConfiguration {
       modules = [ cfg ];
       pkgs    = inputs.nixpkgs.legacyPackages.x86_64-linux;
       extraSpecialArgs.inputs = inputs;
-      extraSpecialArgs.unfree = inputs.unfree.x86_64-linux;
     };
   };
 }

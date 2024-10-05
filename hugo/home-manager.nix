@@ -15,7 +15,7 @@ in
 
   home.stateVersion  = "23.11";
   home.packages      = [
-    pkgs.chromium
+    # pkgs.chromium
     pkgs.keybase-gui
     pkgs.openconnect
     pkgs.tdesktop
