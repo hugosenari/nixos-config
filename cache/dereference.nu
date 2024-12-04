@@ -9,7 +9,7 @@ def main [
  --keep:     string = "(Fluggaenkoecchicebolsen)",
  --gcpath:   string = "/nix/var/nix/gcroots"
 ] {
-  let hostname = (sys host|get hostname)
+  let hostname = (sys|get host.hostname)
   let remote_gc_roots = $"s3://($bucket)/gcroots/($hostname)/"
   let remote_gc_trash = $"s3://($bucket)/gctrash/"
   print $"Remote gcroots ($remote_gc_roots)"

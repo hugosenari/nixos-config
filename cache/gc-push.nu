@@ -8,7 +8,7 @@ def main [
  --gcpath:   string = "/nix/var/nix/gcroots"
 ] {
   watch $gcpath --recursive true {|op, change_path, new_path|
-    let hostname = (sys host|get hostname)
+    let hostname = (sys|get host.hostname)
     let real_path = (readlink -f $new_path)
     let gc_file = ($real_path
       |path basename
