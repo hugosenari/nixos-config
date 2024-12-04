@@ -83,8 +83,7 @@
     keyboard = ${pkgs.onboard}/bin/onboard
   ''; #        ${pkgs.CuboCore.corekeyboard}/bin/corekeyboard is better but failed to work with lightdm + X
 
-  sound.enable        = true;
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.11";
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates  = "*-*-* *:20:00";
