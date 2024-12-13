@@ -1,10 +1,11 @@
 {
-  description         = "Hugosenari Hosts";
+  description     = "Hugosenari Hosts";
 
-  inputs.nixpkgs.url  = "github:NixOS/nixpkgs/release-24.05";
-  #inputs.unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.hm.url       = "github:nix-community/home-manager/release-24.05";
-  inputs.hm.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.prev.url = "github:NixOS/nixpkgs/release-24.05";
+  inputs.next.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.curr.url = "github:NixOS/nixpkgs/release-24.11";
+  inputs.hm.url   = "github:nix-community/home-manager/release-24.05";
+  inputs.hm.inputs.nixpkgs.follows = "prev";
 
   outputs = inputs: rec {
     homeModules.I.imports   = [ ./hugosenari/home-manager.nix ];
@@ -16,20 +17,23 @@
     nixosModules.HP.imports = [ nixosModules.os nixosModules.I ./hp ];
     nixosModules.T1.imports = [ nixosModules.os nixosModules.I ./t1 ];
 
-    nixosConfigurations.BO  = lib.os nixosModules.BO;
-    nixosConfigurations.HP  = lib.os nixosModules.HP;
-    nixosConfigurations.T1  = lib.os nixosModules.T1;
+    nixosConfigurations.BO  = lib.prevOS nixosModules.BO;
+    nixosConfigurations.HP  = lib.prevOS nixosModules.HP;
+    nixosConfigurations.T1  = lib.prevOS nixosModules.T1;
 
-    lib.os   = cfg: inputs.nixpkgs.lib.nixosSystem {
+    lib.prevOS = lib.os inputs.prev;
+    lib.currOS = lib.os inputs.curr;
+    lib.nextOS = lib.os inputs.next;
+    lib.os = nixpkgs: cfg: nixpkgs.lib.nixosSystem {
       modules = [ inputs.hm.nixosModules.home-manager cfg ];
       system  = "x86_64-linux";
-      specialArgs.inputs = inputs;
+      specialArgs.inputs = inputs // { nixpkgs = nixpkgs; };
     };
 
-    lib.home = cfg: inputs.hm.lib.homeManagerConfiguration {
+    lib.home = nixpkgs: cfg: inputs.hm.lib.homeManagerConfiguration {
       modules = [ cfg ];
-      pkgs    = inputs.nixpkgs.legacyPackages.x86_64-linux;
-      extraSpecialArgs.inputs = inputs;
+      pkgs    = nixpkgs.legacyPackages.x86_64-linux;
+      extraSpecialArgs.inputs = inputs // { nixpkgs = nixpkgs; };
     };
   };
 }

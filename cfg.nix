@@ -14,6 +14,7 @@
     neovim
     pulseaudio
     ripgrep
+    stremio
     unzip
     xarchiver
     yj
