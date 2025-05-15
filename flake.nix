@@ -7,7 +7,7 @@
   inputs.homa.url = "github:nix-community/home-manager/release-24.05";
   inputs.homa.inputs.nixpkgs.follows = "v2405";
 
-  outputs = {v2405, v2411}@inputs: rec {
+  outputs = {v2405, v2411, ...}@inputs: rec {
     nixosModules.ME.imports = [ ./hugosenari ];
     nixosModules.OS.imports = [ ./cfg.nix ./cache ./networking.nix ];
     nixosModules.BO.imports = [ nixosModules.OS nixosModules.ME ./bo ];
