@@ -6,18 +6,13 @@
     firefox
     git
     inetutils
-    jq
     lshw
     lsof
     meld
-    mtr
     neovim
     pulseaudio
-    ripgrep
-    stremio
     unzip
     xarchiver
-    yj
     zip
   ];
 
