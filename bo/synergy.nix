@@ -17,8 +17,10 @@
     section: links
        t1:
            right = bo
+           left  = bo
        bo:
            left  = t1
+           right = t1
     end
   '';
 }
