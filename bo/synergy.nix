@@ -16,11 +16,9 @@
     end
     section: links
        t1:
-           right = bo
-           left  = bo
+           bottom  = bo
        bo:
-           left  = t1
-           right = t1
+           top = t1
     end
   '';
 }
