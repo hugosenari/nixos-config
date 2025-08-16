@@ -16,7 +16,7 @@
     end
     section: links
        t1:
-           bottom  = bo
+           down  = bo
        bo:
            top = t1
     end
