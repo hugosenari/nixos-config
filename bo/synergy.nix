@@ -18,7 +18,7 @@
        t1:
            down  = bo
        bo:
-           top = t1
+           up = t1
     end
   '';
 }
