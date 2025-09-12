@@ -26,7 +26,7 @@
       -s <(ssh-keygen -D $LIBTMP2_PATH) \
       -D $LIBTMP2_PATH \
       -V -2h:+2h \
-      -I bo \
+      -I "$(hostname)" \
       -n $USER \
       -z 1 \
       /home/hugosenari/.ssh/id_ecdsa.pub
