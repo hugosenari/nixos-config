@@ -26,6 +26,9 @@
       HashKnownHosts yes
       SendEnv LANG LC_*
   '';
+  services.openssh.extraConfig = ''
+    TrustedUserCAKeys ${./ka.gy.pub}
+  '';
 
   time.timeZone      = "America/Sao_Paulo";
   i18n.defaultLocale = "en_US.UTF-8";
