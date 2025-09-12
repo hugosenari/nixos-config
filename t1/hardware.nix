@@ -3,7 +3,7 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];     
 
-  networking.hostName = "T1";
+  networking.hostName = "t1";
   networking.useDHCP  = lib.mkDefault true;
 
   boot.kernelModules  = [ "kvm-intel" ];

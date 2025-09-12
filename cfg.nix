@@ -27,16 +27,16 @@
   '';
 
   time.timeZone      = "America/Sao_Paulo";
-  i18n.defaultLocale = "en_US.utf8";
-  i18n.extraLocaleSettings.LC_ADDRESS        = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_IDENTIFICATION = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_MEASUREMENT    = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_MONETARY       = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_NAME           = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_NUMERIC        = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_PAPER          = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_TELEPHONE      = "pt_BR.utf8";
-  i18n.extraLocaleSettings.LC_TIME           = "pt_BR.utf8";
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings.LC_ADDRESS        = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_IDENTIFICATION = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_MEASUREMENT    = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_MONETARY       = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_NAME           = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_NUMERIC        = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_PAPER          = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_TELEPHONE      = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings.LC_TIME           = "pt_BR.UTF-8";
 
   hardware.pulseaudio.enable = false;
 
@@ -46,7 +46,11 @@
   nix.gc.dates                     = "weekly";
   nix.settings.auto-optimise-store = true;
   nix.settings.substituters        = [ "https://numtide.cachix.org" ];
-  nix.settings.trusted-public-keys = [ "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE=" ];
+  nix.settings.trusted-public-keys = [ 
+    "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+    "t1.ka.gy-1:ZOlSF/x1GTe4G7yoLiWarIRGUhFcYWgVfWx68x1LUWQ="
+    "bo.ka.gy-1:q4Rj6nHsu2gYkwUSJ7W/KzbXskVC1jvqt7b2RgUqp8o="
+  ];
   nix.settings.trusted-users       = [ "root" "hugosenari" "@nixbld" ];
   nix.registry.nixpkgs.from.id     = "nixpkgs";
   nix.registry.nixpkgs.from.type   = "indirect";
@@ -56,10 +60,11 @@
   nix.registry.nixpkgs.to.ref      = inputs.nixpkgs.sourceInfo.rev;
 
   security.rtkit.enable        = true;
+  systemd.tpm2.enable          = true;
+  security.tpm2.pkcs11.enable  = true;
+  security.tpm2.enable         = true;
+  security.pam.p11.enable      = true;
   services.acpid.enable        = true;
-  services.connman.enable      = true;
-  services.connman.enableVPN   = true;
-  services.connman.extraFlags  = [ "--nodnsproxy" ];
   services.pipewire.enable     = true;
   services.pipewire.alsa.enable       = true;
   services.pipewire.alsa.support32Bit = true;
@@ -67,11 +72,21 @@
 
   services.printing.enable    = false;
   services.sshd.enable        = true;
+
+  services.connman.enable      = true;
+  services.connman.enableVPN   = true;
+  services.connman.extraFlags  = [ "--nodnsproxy" ];
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.dates  = "*-*-* *:20:00";
+  system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
+  system.autoUpgrade.flags  = ["--refresh"];
+  system.autoUpgrade.randomizedDelaySec = "5m";
+
   services.xserver.enable     = true;
   services.xserver.xkb.layout     = "br";
   services.xserver.xkb.options = "caps:swapescape";
   services.xserver.xkb.variant = "nodeadkeys";
-  services.xserver.desktopManager.enlightenment.enable = true;
   services.xserver.displayManager.lightdm.enable       = true;
   services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
   services.xserver.displayManager.lightdm.greeters.gtk.extraConfig = ''
@@ -79,17 +94,5 @@
     keyboard = ${pkgs.onboard}/bin/onboard
   ''; #        ${pkgs.CuboCore.corekeyboard}/bin/corekeyboard is better but failed to work with lightdm + X
 
-  system.stateVersion = "24.11";
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.dates  = "*-*-* *:20:00";
-  system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}";
-  system.autoUpgrade.flags  = ["--refresh"];
-  system.autoUpgrade.randomizedDelaySec = "5m";
- 
-  virtualisation.docker.enable = false;
-
-  services.my-own-cache-with-blackjack-and-hooks.enable  = true;
-  services.my-own-cache-with-blackjack-and-hooks.s3-end  = "q4n8.or.idrivee2-24.com";
-  services.my-own-cache-with-blackjack-and-hooks.sig-pub = "nixstore:XPnWsxFA3W5WV9nl6TFA1EhYkehVMIZOs20wuAf8A5c=";
-}
+  services.harmonia.enable = true;
+}   

@@ -2,7 +2,7 @@
 {
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
-  networking.hostName = "BO";
+  networking.hostName = "bo";
   networking.useDHCP  = lib.mkDefault true;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];

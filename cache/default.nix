@@ -116,23 +116,23 @@ in
 
   config.systemd.services = lib.mkIf cfg.enable { 
     nix-daemon.environment.AWS_SHARED_CREDENTIALS_FILE = cfg.s3-cred;
-    pkgs-own-cache-dereference.description = "Mark gcroots as unused";
-    pkgs-own-cache-dereference.enable      = true;
-    pkgs-own-cache-dereference.path        = [ pkgs.gzip s5cmd ];
-    pkgs-own-cache-dereference.script      = deref;
-    pkgs-own-cache-dereference.wantedBy    = [ "multi-user.target" ];
-    
-    pkgs-own-cache-gc.description          = "Remove unused nar, narinfo, gcinfo files";
-    pkgs-own-cache-gc.enable               = true;
-    pkgs-own-cache-gc.path                 = [ pkgs.gzip s5cmd pkgs.gawk ];
-    pkgs-own-cache-gc.script               = gc;
-    pkgs-own-cache-gc.wantedBy             = [ "multi-user.target" ];
-    
-    pkgs-own-cache-gc-push.description     = "Send gcroots to private cache";
-    pkgs-own-cache-gc-push.enable          = true;
-    pkgs-own-cache-gc-push.path            = [ config.nix.package pkgs.gawk pkgs.gzip s5cmd ];
-    pkgs-own-cache-gc-push.script          = gc-push;
-    pkgs-own-cache-gc-push.wantedBy        = [ "multi-user.target" ];
+    # pkgs-own-cache-dereference.description = "Mark gcroots as unused";
+    # pkgs-own-cache-dereference.enable      = true;
+    # pkgs-own-cache-dereference.path        = [ pkgs.gzip s5cmd ];
+    # pkgs-own-cache-dereference.script      = deref;
+    # pkgs-own-cache-dereference.wantedBy    = [ "multi-user.target" ];
+    # 
+    # pkgs-own-cache-gc.description          = "Remove unused nar, narinfo, gcinfo files";
+    # pkgs-own-cache-gc.enable               = true;
+    # pkgs-own-cache-gc.path                 = [ pkgs.gzip s5cmd pkgs.gawk ];
+    # pkgs-own-cache-gc.script               = gc;
+    # pkgs-own-cache-gc.wantedBy             = [ "multi-user.target" ];
+    # 
+    # pkgs-own-cache-gc-push.description     = "Send gcroots to private cache";
+    # pkgs-own-cache-gc-push.enable          = true;
+    # pkgs-own-cache-gc-push.path            = [ config.nix.package pkgs.gawk pkgs.gzip s5cmd ];
+    # pkgs-own-cache-gc-push.script          = gc-push;
+    # pkgs-own-cache-gc-push.wantedBy        = [ "multi-user.target" ];
 
     pkgs-own-cache-uploader.description    = "Send pkgs to private cache";
     pkgs-own-cache-uploader.enable         = true;

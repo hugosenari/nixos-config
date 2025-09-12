@@ -1,6 +1,5 @@
-{lib, config, ...}:
+{lib, ...}:
 let 
-  cfg = config.networking;
   dns = [
     "1.1.1.1"
     "8.8.8.8"

@@ -21,8 +21,8 @@ def main [
       $gc_file   !~ ".tmp-"  and
       $real_path !~ $filter  and
       (
-        $op == "Create" or  
-        $op == "Rename" or  
+        $op == "Create" or
+        $op == "Rename" or
         $op == "Chmod"
       )
     ) {
