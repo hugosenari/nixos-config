@@ -26,12 +26,8 @@
       HashKnownHosts yes
       SendEnv LANG LC_*
   '';
-  services.openssh.extraConfig = let
-    bo = builtins.readFile ./ssh.bo.ka.gy.pub;
-    t1 = builtins.readFile ./ssh.t1.ka.gy.pub;
-  in
-  ''
-    TrustedUserCAKeys ${builtins.toFile "ssh.ka.gy.pub" (bo + "\n" + t1)}
+  services.openssh.extraConfig = ''
+    TrustedUserCAKeys ${./ssh.ka.gy.pub}
   '';
 
   time.timeZone      = "America/Sao_Paulo";
