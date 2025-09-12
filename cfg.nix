@@ -11,6 +11,7 @@
     meld
     neovim
     pulseaudio
+    tpm2-tools
     unzip
     xarchiver
     zip
@@ -40,7 +41,6 @@
 
   hardware.pulseaudio.enable = false;
 
-  nix.extraOptions = "experimental-features = nix-command flakes ca-derivations";
   nix.gc.automatic                 = true;
   nix.gc.randomizedDelaySec        = "46min";
   nix.gc.dates                     = "weekly";
@@ -51,6 +51,12 @@
     "t1.ka.gy-1:ZOlSF/x1GTe4G7yoLiWarIRGUhFcYWgVfWx68x1LUWQ="
     "bo.ka.gy-1:q4Rj6nHsu2gYkwUSJ7W/KzbXskVC1jvqt7b2RgUqp8o="
   ];
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes ca-derivations
+    connect-timeout       = 1
+    fallback              = true
+    warn-dirty            = false
+  '';
   nix.settings.trusted-users       = [ "root" "hugosenari" "@nixbld" ];
   nix.registry.nixpkgs.from.id     = "nixpkgs";
   nix.registry.nixpkgs.from.type   = "indirect";
@@ -60,10 +66,11 @@
   nix.registry.nixpkgs.to.ref      = inputs.nixpkgs.sourceInfo.rev;
 
   security.rtkit.enable        = true;
-  systemd.tpm2.enable          = true;
-  security.tpm2.pkcs11.enable  = true;
   security.tpm2.enable         = true;
-  security.pam.p11.enable      = true;
+  security.tpm2.pkcs11.enable  = true;
+  security.tpm2.abrmd.enable   = true;
+  security.tpm2.tctiEnvironment.enable = true;
+  security.tpm2.tctiEnvironment.interface = "tabrmd";
   services.acpid.enable        = true;
   services.pipewire.enable     = true;
   services.pipewire.alsa.enable       = true;
@@ -76,6 +83,7 @@
   services.connman.enable      = true;
   services.connman.enableVPN   = true;
   services.connman.extraFlags  = [ "--nodnsproxy" ];
+  services.connman.package     = inputs.v2411.legacyPackages.x86_64-linux.connmanFull;
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates  = "*-*-* *:20:00";
