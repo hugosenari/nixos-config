@@ -15,7 +15,7 @@
     nixosModules.bo.imports = [ nixosModules.os nixosModules.me ./bo ];
     nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 ];
 
-    nixosConfigurations.bo  = lib.os v2411 h2411 nixosModules.bo;
+    nixosConfigurations.bo  = lib.os v2505 h2505 nixosModules.bo;
     nixosConfigurations.t1  = lib.os v2505 h2505 nixosModules.t1;
 
     lib.os = nixpkgs: homa: cfg: nixpkgs.lib.nixosSystem {
