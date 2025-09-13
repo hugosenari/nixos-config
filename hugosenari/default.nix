@@ -12,7 +12,7 @@
   systemd.user.timers.id-ecdsa-signer.wantedBy = [ "timers.target" ];
   systemd.user.timers.id-ecdsa-signer.timerConfig.Unit            = "id-ecdsa-signer.service";
   systemd.user.timers.id-ecdsa-signer.timerConfig.OnBootSec       = "2m";
-  systemd.user.timers.id-ecdsa-signer.timerConfig.OnUnitActiveSec = "2h";
+  systemd.user.timers.id-ecdsa-signer.timerConfig.OnUnitActiveSec = "1h";
   systemd.user.services.id-ecdsa-signer.serviceConfig.TimeoutStopSec = "90";
   systemd.user.services.id-ecdsa-signer.enable      = true;
   systemd.user.services.id-ecdsa-signer.description = "Sign id_ecdsa.pub every hour to keep it fresh";
@@ -20,7 +20,7 @@
   systemd.user.services.id-ecdsa-signer.serviceConfig.Type = "oneshot";
   systemd.user.services.id-ecdsa-signer.script = ''
     export LIBTMP2_PATH=${pkgs.tpm2-pkcs11}/lib/libtpm2_pkcs11.so
-    export PATH=${pkgs.ssh-askpass-fullscreen}/bin:${pkgs.openssh}/bin:$PATH
+    export PATH=${pkgs.openssh}/bin:$PATH
     export SSH_ASKPASS=/home/hugosenari/.ssh/ask_p
     ssh-keygen \
       -s <(ssh-keygen -D $LIBTMP2_PATH) \
