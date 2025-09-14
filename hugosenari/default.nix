@@ -19,7 +19,7 @@
   systemd.user.services.id-ecdsa-signer.wantedBy    = [ "multi-user.target" ];
   systemd.user.services.id-ecdsa-signer.serviceConfig.Type = "oneshot";
   systemd.user.services.id-ecdsa-signer.script = ''
-    export LIBTMP2_PATH=${pkgs.tpm2-pkcs11}/lib/libtpm2_pkcs11.so
+    export LIBTMP2_PATH=/run/current-system/sw/lib/libtpm2_pkcs11.so
     export PATH=${pkgs.openssh}/bin:$PATH
     export SSH_ASKPASS=/home/hugosenari/.ssh/ask_p
     ssh-keygen \
