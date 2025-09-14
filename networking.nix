@@ -13,5 +13,5 @@ in
   networking.search      = ["localhost" "ka.gy"];
   networking.nameservers = dns;
   networking.firewall.enable = false;
-  networking.wireless.enable = true;
+  # networking.wireless.enable = true;
 }

@@ -1,5 +1,6 @@
 { config, pkgs, lib, inputs, ... }:
 {
+  system.stateVersion = "25.05";
   environment.systemPackages = with pkgs; [
     bluez
     bluez-tools
@@ -11,6 +12,7 @@
     meld
     neovim
     pulseaudio
+    enlightenment.terminology
     tpm2-tools
     unzip
     xarchiver
@@ -42,7 +44,7 @@
   i18n.extraLocaleSettings.LC_TELEPHONE      = "pt_BR.UTF-8";
   i18n.extraLocaleSettings.LC_TIME           = "pt_BR.UTF-8";
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   nix.gc.automatic                 = true;
   nix.gc.randomizedDelaySec        = "46min";
@@ -82,11 +84,8 @@
 
   services.printing.enable    = false;
   services.sshd.enable        = true;
-
-  services.connman.enable      = true;
-  services.connman.enableVPN   = true;
-  services.connman.extraFlags  = [ "--nodnsproxy" ];
-  services.connman.package     = inputs.v2411.legacyPackages.x86_64-linux.connmanFull;
+  networking.networkmanager.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates  = "*-*-* *:20:00";
@@ -98,12 +97,6 @@
   services.xserver.xkb.layout     = "br";
   services.xserver.xkb.options = "caps:swapescape";
   services.xserver.xkb.variant = "nodeadkeys";
-  services.xserver.displayManager.lightdm.enable       = true;
-  services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
-  services.xserver.displayManager.lightdm.greeters.gtk.extraConfig = ''
-    indicators =  ~host;~spacer;~clock;~spacer;~layout;~language;~session;~a11y;~power
-    keyboard = ${pkgs.onboard}/bin/onboard
-  ''; #        ${pkgs.CuboCore.corekeyboard}/bin/corekeyboard is better but failed to work with lightdm + X
-
+  services.xserver.displayManager.gdm.enable = true;
   services.harmonia.enable = true;
 }   
