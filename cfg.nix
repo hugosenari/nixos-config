@@ -97,6 +97,7 @@
   services.xserver.xkb.layout     = "br";
   services.xserver.xkb.options = "caps:swapescape";
   services.xserver.xkb.variant = "nodeadkeys";
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.enable  = true;
+  services.xserver.displayManager.gdm.wayland = false;
   services.harmonia.enable = true;
 }   
