@@ -100,4 +100,15 @@
   services.xserver.displayManager.gdm.enable  = true;
   services.xserver.displayManager.gdm.wayland = false;
   services.harmonia.enable = true;
+
+  services.interception-tools.enable = true;
+  services.interception-tools.plugins = [ pkgs.interception-tools-plugins.caps2esc ];
+  services.interception-tools.udevmonConfig = lib.strings.toJSON [{
+    DEVICE.EVENTS.EV_KEY = [ "KEY_CAPSLOCK" "KEY_ESC" ];
+    JOB = builtins.concatStringsSep " | " [
+      "${pkgs.interception-tools}/bin/intercept -g $DEVNODE"
+      "${lib.getExe pkgs.interception-tools-plugins.caps2esc} -m 1 -t 0" 
+      "${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+    ];
+  }];
 }   
