@@ -27,7 +27,12 @@
       GSSAPIAuthentication yes
       HashKnownHosts yes
       SendEnv LANG LC_*
+    Host *.ka.gy
+      IdentityAgent none
+      PKCS11Provider /run/current-system/sw/lib/libtpm2_pkcs11.so
   '';
+  services.sshd.enable         = true;
+  services.openssh.settings.X11Forwarding = true;
   services.openssh.extraConfig = ''
     TrustedUserCAKeys ${./ssh.ka.gy.pub}
   '';
@@ -83,7 +88,6 @@
   services.pipewire.pulse.enable      = true;
 
   services.printing.enable    = false;
-  services.sshd.enable        = true;
   networking.networkmanager.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
