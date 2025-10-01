@@ -7,18 +7,24 @@
     section: screens
       t1:
       bo:
+      hp:
     end
     section: aliases
         t1:
           t1.ka.gy
         bo:
           bo.ka.gy
+        hp:
+          hp.ka.gy
     end
     section: links
        t1:
            down  = bo
        bo:
            up = t1
+           right = hp
+       hp:
+           left = bo
     end
   '';
 }

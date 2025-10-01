@@ -11,9 +11,11 @@
     nixosModules.os.imports = [ ./cfg.nix ./networking.nix ];
     nixosModules.bo.imports = [ nixosModules.os nixosModules.me ./bo ];
     nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 ];
+    nixosModules.hp.imports = [ nixosModules.os nixosModules.me ./hp ];
 
     nixosConfigurations.bo  = lib.os "2505" nixosModules.bo;
     nixosConfigurations.t1  = lib.os "2505" nixosModules.t1;
+    nixosConfigurations.hp  = lib.os "2505" nixosModules.hp;
 
     lib.os = version: cfg: inputs."v${version}".lib.nixosSystem {
       modules = [ inputs."h${version}".nixosModules.home-manager cfg ];
