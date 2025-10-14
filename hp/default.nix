@@ -1,9 +1,10 @@
-{
-  imports = [
-    ./hardware.nix
-    ./synergy.nix
-  ];
+{ pkgs, ...}: {
+  imports = [ ./hardware.nix ];
 
-  services.harmonia.signKeyPaths = [ "/etc/nix/t1.ka.gy.secret" ];
-  nix.settings.substituters = [ "http://bo.ka.gy:5000" ];
+  networking.hostName = "hp"; # Define your hostname.
+  users.users.hugosenari.isNormalUser = true;
+  users.users.hugosenari.description  = "hugosenari";
+  users.users.hugosenari.extraGroups  = [ "networkmanager" "wheel" ];
+  services.harmonia.signKeyPaths = [ "/etc/nix/hp.ka.gy.secret" ];
+  security.sudo.wheelNeedsPassword = false;
 }

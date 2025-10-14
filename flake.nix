@@ -1,26 +1,45 @@
 {
   description     = "Hugosenari Hosts";
 
-  inputs.v2505.url = "github:NixOS/nixpkgs/release-25.05";
-  inputs.h2505.url = "github:nix-community/home-manager/release-24.05";
-  inputs.h2505.inputs.nixpkgs.follows = "v2505";
+  inputs."v25.05".url = "github:NixOS/nixpkgs/release-25.05";
+  inputs."h25.05".url = "github:nix-community/home-manager/release-25.05";
+  inputs."h25.05".inputs.nixpkgs.follows = "v25.05";
 
-  outputs = {v2505, h2505, ...}@inputs: rec {
-    homeModules.I.imports   = [ ./hugosenari/home-manager.nix ];
+  outputs = inputs: rec {
+
+
+    # user home-manager cfg
+    homeModules.I.imports   = [ ./hugosenari/home-manager ];
+    homeModules.D.imports   = [ homeModules.I ./hugosenari/home-manager/desktop.nix ];
+
+    # user cfg
     nixosModules.me.imports = [ ./hugosenari ];
-    nixosModules.os.imports = [ ./cfg.nix ./networking.nix ];
-    nixosModules.bo.imports = [ nixosModules.os nixosModules.me ./bo ];
-    nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 ];
+
+    # nixos cfg
+    nixosModules.os.imports = [ ./base.nix ./networking.nix ./nix.nix ];
+
+    # nixos desktop cfg
+    nixosModules.de.imports = [ ./desktop.nix ];
+
+    # nixos machines cfg
     nixosModules.hp.imports = [ nixosModules.os nixosModules.me ./hp ];
+    nixosModules.bo.imports = [ nixosModules.os nixosModules.me ./bo nixosModule.de ];
+    nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 nixosModule.de ];
+    
+    # nixos machines entry points (used by nixos-rebuild command)
+    nixosConfigurations.hp  = lib.os "25.05" nixosModules.hp homeModules.I;
+    nixosConfigurations.bo  = lib.os "25.05" nixosModules.bo homeModules.D;
+    nixosConfigurations.t1  = lib.os "25.05" nixosModules.t1 homeModules.D;
 
-    nixosConfigurations.bo  = lib.os "2505" nixosModules.bo;
-    nixosConfigurations.t1  = lib.os "2505" nixosModules.t1;
-    nixosConfigurations.hp  = lib.os "2505" nixosModules.hp;
-
-    lib.os = version: cfg: inputs."v${version}".lib.nixosSystem {
-      modules = [ inputs."h${version}".nixosModules.home-manager cfg ];
+    lib.os = inputs."v${version}".lib.nixosSystem {
       system  = "x86_64-linux";
-      specialArgs.inputs = inputs // { nixpkgs = inputs."v${version}"; };
+      specialArgs.inputs  = inputs;
+      modules = [
+        { system.stateVersion = version; }
+        cfg
+      	inputs."h${version}".nixosModules.home-manager
+        { home-manager.users.hugosenari = hm-cfg; }
+      ];
     };
   };
 }

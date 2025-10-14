@@ -1,15 +1,9 @@
 # One Netbook T1
-{ config, lib, pkgs, modulesPath, ... }:
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];     
-
   networking.hostName = "t1";
-  networking.useDHCP  = lib.mkDefault true;
 
   boot.kernelModules  = [ "kvm-intel" ];
   boot.initrd.availableKernelModules   = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-
-
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint     = "/boot";
   boot.loader.systemd-boot.enable      = true;
@@ -24,6 +18,6 @@
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor    = "powersave";
-  hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = true;
   hardware.bluetooth.enable          = true;
 }

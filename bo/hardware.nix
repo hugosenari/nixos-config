@@ -1,9 +1,5 @@
-{ config, lib, pkgs, modulesPath, ... }:
 {
-  imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
-
   networking.hostName = "bo";
-  networking.useDHCP  = lib.mkDefault true;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules          = [ ];
@@ -19,11 +15,9 @@
   fileSystems."/boot/efi".device = "/dev/disk/by-uuid/B8F1-3F27";
   fileSystems."/boot/efi".fsType = "vfat";
 
-
-
   swapDevices = [ { device = "/dev/disk/by-uuid/75f343d8-d50c-4c54-bc2b-f91b6bcb2fae"; } ];
 
-  powerManagement.cpuFreqGovernor    = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  powerManagement.cpuFreqGovernor    = "powersave";
+  hardware.cpu.intel.updateMicrocode = true;
   hardware.bluetooth.enable          = true;
 }
