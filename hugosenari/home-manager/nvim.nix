@@ -4,5 +4,5 @@
   programs.neovim.viAlias      = true;
   programs.neovim.vimAlias     = true;
   programs.neovim.vimdiffAlias = true;
-  programs.neovim.plugins      = [ pkgs.vimPlugins.snacks ];
+  programs.neovim.plugins      = [ pkgs.vimPlugins.snacks-nvim ];
 }
