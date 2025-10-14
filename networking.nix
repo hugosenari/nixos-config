@@ -2,7 +2,6 @@
 {
   services.nscd.enable   = false;                  # no local dns
   system.nssModules      = lib.mkForce [];         # no nss modules please
-  networking.useDHCP     = true;
   networking.enableIPv6  = false;                  # no IPv6
   networking.search      = ["localhost" "ka.gy"];  # we are ka.gy
   networking.nameservers = [
