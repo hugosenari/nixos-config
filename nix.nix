@@ -7,7 +7,7 @@
   nix.registry.nixpkgs.from.id     = "nixpkgs";
   nix.registry.nixpkgs.from.type   = "indirect";
   nix.registry.nixpkgs.to.owner    = "NixOS";
-  nix.registry.nixpkgs.to.ref      = inputs."v${config.system.stateVersion}".sourceInfo.rev;
+  nix.registry.nixpkgs.to.ref      = inputs."v${builtins.replaceStrings ['.'] ['_'] config.system.stateVersion}".sourceInfo.rev;
   nix.registry.nixpkgs.to.repo     = "nixpkgs";
   nix.registry.nixpkgs.to.type     = "github";
   nixpkgs.config.allowUnfree       = true;

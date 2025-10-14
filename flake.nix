@@ -1,9 +1,9 @@
 {
   description     = "Hugosenari Hosts";
 
-  inputs."v25.05".url = "github:NixOS/nixpkgs/release-25.05";
-  inputs."h25.05".url = "github:nix-community/home-manager/release-25.05";
-  inputs."h25.05".inputs.nixpkgs.follows = "v25.05";
+  inputs."v25_05".url = "github:NixOS/nixpkgs/release-25.05";
+  inputs."h25_05".url = "github:nix-community/home-manager/release-25.05";
+  inputs."h25_05".inputs.nixpkgs.follows = "'v25_05'";
 
   outputs = inputs: rec {
 
@@ -27,15 +27,15 @@
     nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 nixosModules.de ];
     
     # nixos machines entry points (used by nixos-rebuild command)
-    nixosConfigurations.hp  = lib.os "25.05" nixosModules.hp homeModules.I;
-    nixosConfigurations.bo  = lib.os "25.05" nixosModules.bo homeModules.D;
-    nixosConfigurations.t1  = lib.os "25.05" nixosModules.t1 homeModules.D;
+    nixosConfigurations.hp  = lib.os "25_05" nixosModules.hp homeModules.I;
+    nixosConfigurations.bo  = lib.os "25_05" nixosModules.bo homeModules.D;
+    nixosConfigurations.t1  = lib.os "25_05" nixosModules.t1 homeModules.D;
 
     lib.os = version: cfg: hm-cfg: inputs."v${version}".lib.nixosSystem {
       system  = "x86_64-linux";
       specialArgs.inputs  = inputs;
       modules = [
-        { system.stateVersion = version; }
+        { system.stateVersion = builtins.replaceStrings ["_"] ["."] version; }
         cfg
       	inputs."h${version}".nixosModules.home-manager
         { home-manager.users.hugosenari = hm-cfg; }
