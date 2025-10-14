@@ -1,4 +1,4 @@
-{ pkgs, lib, ...}:
+{ pkgs, lib, config, ...}:
 let
   fish-completion-sync = {
     name = "fish-completion-sync";
