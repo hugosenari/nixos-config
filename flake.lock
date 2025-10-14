@@ -1,9 +1,9 @@
 {
   "nodes": {
-    "h2505": {
+    "h25_05": {
       "inputs": {
         "nixpkgs": [
-          "v2505"
+          "v25_05"
         ]
       },
       "locked": {
@@ -23,17 +23,17 @@
     },
     "root": {
       "inputs": {
-        "h2505": "h2505",
-        "v2505": "v2505"
+        "h25_05": "h25_05",
+        "v25_05": "v25_05"
       }
     },
-    "v2505": {
+    "v25_05": {
       "locked": {
-        "lastModified": 1757642061,
-        "narHash": "sha256-tbD+Y4olm5ONA0pmPP3jJt0aUnaN6z4juoXMhdzleu4=",
+        "lastModified": 1760392495,
+        "narHash": "sha256-Z8R9MazlsXShZsfN1oTq9P4ljWq1YRtJFuI4k2c2G8Q=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "389c3cf94907c4b7a9137657aa3b9207753057c7",
+        "rev": "4c0426efac242de67c7ae62b463df08f7d12a462",
         "type": "github"
       },
       "original": {

@@ -3,7 +3,7 @@
 
   inputs."v25_05".url = "github:NixOS/nixpkgs/release-25.05";
   inputs."h25_05".url = "github:nix-community/home-manager/release-25.05";
-  inputs."h25_05".inputs.nixpkgs.follows = "'v25_05'";
+  inputs."h25_05".inputs.nixpkgs.follows = "v25_05";
 
   outputs = inputs: rec {
 
