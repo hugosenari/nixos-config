@@ -35,7 +35,7 @@ in
   systemd.user.services.kbfs.Service.PrivateTmp = lib.mkForce false; # KBFS fail with true
   systemd.user.services.id-ecdsa-signer.serviceConfig.TimeoutStopSec = "90";
   systemd.user.services.id-ecdsa-signer.enable      = true;
-  systemd.user.services.id-ecdsa-signer.description = "Resign id_ecdsa.pub to keep it fresh";
+  systemd.user.services.id-ecdsa-signer.description = ''Resign id_ecdsa.pub to keep it fresh'';
   systemd.user.services.id-ecdsa-signer.wantedBy    = [ "multi-user.target" ];
   systemd.user.services.id-ecdsa-signer.serviceConfig.Type = "oneshot";
   systemd.user.services.id-ecdsa-signer.script = ''
