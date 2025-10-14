@@ -23,8 +23,8 @@
 
     # nixos machines cfg
     nixosModules.hp.imports = [ nixosModules.os nixosModules.me ./hp ];
-    nixosModules.bo.imports = [ nixosModules.os nixosModules.me ./bo nixosModule.de ];
-    nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 nixosModule.de ];
+    nixosModules.bo.imports = [ nixosModules.os nixosModules.me ./bo nixosModules.de ];
+    nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 nixosModules.de ];
     
     # nixos machines entry points (used by nixos-rebuild command)
     nixosConfigurations.hp  = lib.os "25.05" nixosModules.hp homeModules.I;
