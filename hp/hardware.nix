@@ -2,8 +2,8 @@
 {
   swapDevices = [ ];
 
-  fileSystems."/".type   = "ext4";
-  fileSystems."/".device = mkExt4Fs "/dev/disk/by-uuid/2e3f2881-873c-4855-8847-6d9ce6c6ecf3";
+  fileSystems."/".type       = "ext4";
+  fileSystems."/".device     = "/dev/disk/by-uuid/2e3f2881-873c-4855-8847-6d9ce6c6ecf3";
   fileSystems."/home".type   = "ext4";
   fileSystems."/home".device = "/dev/disk/by-uuid/35f101c7-12cb-426c-af91-23b82ec9871e";
 
