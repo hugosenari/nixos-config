@@ -31,7 +31,7 @@
     nixosConfigurations.bo  = lib.os "25.05" nixosModules.bo homeModules.D;
     nixosConfigurations.t1  = lib.os "25.05" nixosModules.t1 homeModules.D;
 
-    lib.os = inputs."v${version}".lib.nixosSystem {
+    lib.os = version: cfg: hm-cfg: inputs."v${version}".lib.nixosSystem {
       system  = "x86_64-linux";
       specialArgs.inputs  = inputs;
       modules = [
