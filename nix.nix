@@ -33,7 +33,7 @@ in {
   system.autoUpgrade.flags  = ["--refresh"];    # no repo cache for upgrade
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}"; # source
   system.autoUpgrade.randomizedDelaySec = "5m";    # prevents all machine to upgrade at exactly same time
-  nix.distributedBuilds     = config.networking.hostName != "hp";
+  nix.distributedBuilds     = true;
   nix.buildMachines         = [{
     system   = "x86_64-linux";
     sshUser  = "hugosenari";
