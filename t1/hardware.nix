@@ -20,4 +20,5 @@
   powerManagement.cpuFreqGovernor    = "powersave";
   hardware.cpu.intel.updateMicrocode = true;
   hardware.bluetooth.enable          = true;
+  hardware.enableRedistributableFirmware = true;
 }
