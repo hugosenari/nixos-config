@@ -1,5 +1,6 @@
-{ inputs, config, ...}:
-let pkgVer = builtins.replaceStrings ["."] ["_"] config.system.stateVersion;
+{ inputs, config, lib, ...}:
+let
+ pkgVer = builtins.replaceStrings ["."] ["_"] config.system.stateVersion;
 in {
   # nix
   nix.gc.automatic                 = true;
@@ -17,8 +18,7 @@ in {
   nix.settings.trusted-users       = [ "root" "hugosenari" "@nixbld" ];
   nix.settings.trusted-public-keys = [ 
     "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
-    "t1.ka.gy-1:ZOlSF/x1GTe4G7yoLiWarIRGUhFcYWgVfWx68x1LUWQ="
-    "bo.ka.gy-1:q4Rj6nHsu2gYkwUSJ7W/KzbXskVC1jvqt7b2RgUqp8o="
+    "cache.ka.gy-1:eBtYnEQTdI34kRm3+Vo7+IwmumWGITyi67rYjUh91aY="
   ];
   nix.extraOptions = ''
     experimental-features = nix-command flakes ca-derivations
@@ -33,4 +33,14 @@ in {
   system.autoUpgrade.flags     = ["--refresh"];    # no repo cache for upgrade
   system.autoUpgrade.flake     = "github:hugosenari/nixos-config#${config.networking.hostName}"; # source
   system.autoUpgrade.randomizedDelaySec = "5m";    # prevents all machine to upgrade at exactly same time
+  nix.distributedBuilds         = config.networking.hostName != "hp";
+  nix.buildMachines = lib.optionalAttrs config.nix.distributedBuilds {
+    hp.system   = "x86_64-linux";
+    hp.sshUser  = "hugosenari";
+    hp.sshKey   = "/home/hugosenari/.ssh/id_ecdsa-cert.pub";
+    hp.protocol = "ssh-ng";
+    hp.maxJobs  = 100;
+    hp.hostName = "hp.ka.gy";
+    hp.publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUVBLzhNZDM1OC9lWG1ZUW9ZeUhScjlMa3lCdjFSZ1FTYkgyWXVmMFl0bHEgcm9vdEBIUAo=";
+  };
 }
