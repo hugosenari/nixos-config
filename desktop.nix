@@ -6,7 +6,7 @@
     pkgs.firefox
     pkgs.meld
     pkgs.pulseaudio
-    pkgs.terminology
+    pkgs.enlightenment.terminology
   ];
 
   services.pulseaudio.enable = false;
