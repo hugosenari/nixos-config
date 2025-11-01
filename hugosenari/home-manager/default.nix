@@ -20,7 +20,7 @@ in
   nix.extraOptions = "\n!include ${config.home.homeDirectory}/keybase/private/hugosenari/nix.conf\n";
   nixpkgs.config.allowUnfree         = true;
   nixpkgs.config.allowUnfreePredicate= (pkg: true);
-  programs.command-not-found.enable  = true;
+  programs.command-not-found.enable  = false;
   programs.direnv.enable             = true;
   programs.fish.enable               = true;
   programs.fish.plugins              = [ fish-completion-sync  ];

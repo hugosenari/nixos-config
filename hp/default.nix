@@ -1,5 +1,5 @@
 { pkgs, ...}: {
-  imports = [ ./hardware.nix ];
+  imports = [ ./hardware.nix ./tpm2-emo.nix ];
 
   networking.hostName = "hp"; # Define your hostname.
   users.users.hugosenari.isNormalUser = true;
