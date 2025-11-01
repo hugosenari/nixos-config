@@ -34,13 +34,13 @@ in {
   system.autoUpgrade.flake     = "github:hugosenari/nixos-config#${config.networking.hostName}"; # source
   system.autoUpgrade.randomizedDelaySec = "5m";    # prevents all machine to upgrade at exactly same time
   nix.distributedBuilds         = config.networking.hostName != "hp";
-  nix.buildMachines = lib.optionalAttrs config.nix.distributedBuilds {
-    hp.system   = "x86_64-linux";
-    hp.sshUser  = "hugosenari";
-    hp.sshKey   = "/home/hugosenari/.ssh/id_ecdsa-cert.pub";
-    hp.protocol = "ssh-ng";
-    hp.maxJobs  = 100;
-    hp.hostName = "hp.ka.gy";
-    hp.publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUVBLzhNZDM1OC9lWG1ZUW9ZeUhScjlMa3lCdjFSZ1FTYkgyWXVmMFl0bHEgcm9vdEBIUAo=";
+  nix.buildMachines.hp = lib.optionalAttrs config.nix.distributedBuilds {
+    system   = "x86_64-linux";
+    sshUser  = "hugosenari";
+    sshKey   = "/home/hugosenari/.ssh/id_ecdsa-cert.pub";
+    protocol = "ssh-ng";
+    maxJobs  = 100;
+    hostName = "hp.ka.gy";
+    publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUVBLzhNZDM1OC9lWG1ZUW9ZeUhScjlMa3lCdjFSZ1FTYkgyWXVmMFl0bHEgcm9vdEBIUAo=";
   };
 }
