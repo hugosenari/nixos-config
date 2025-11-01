@@ -27,14 +27,14 @@ in {
     warn-dirty            = false
   '';
 
-  nixpkgs.hostPlatform         = "x86_64-linux";
-  system.autoUpgrade.enable    = true;             # auto upgrade my nixos installation and configs
-  system.autoUpgrade.dates     = "*-*-* *:20:00";  # try upgrade every 20min, nothing is done if no change
-  system.autoUpgrade.flags     = ["--refresh"];    # no repo cache for upgrade
-  system.autoUpgrade.flake     = "github:hugosenari/nixos-config#${config.networking.hostName}"; # source
+  nixpkgs.hostPlatform      = "x86_64-linux";
+  system.autoUpgrade.enable = true;             # auto upgrade my nixos installation and configs
+  system.autoUpgrade.dates  = "*-*-* *:20:00";  # try upgrade every 20min, nothing is done if no change
+  system.autoUpgrade.flags  = ["--refresh"];    # no repo cache for upgrade
+  system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}"; # source
   system.autoUpgrade.randomizedDelaySec = "5m";    # prevents all machine to upgrade at exactly same time
-  nix.distributedBuilds         = config.networking.hostName != "hp";
-  nix.buildMachines = lib.optionals config.nix.distributedBuilds [{
+  nix.distributedBuilds     = config.networking.hostName != "hp";
+  nix.buildMachines         = [{
     system   = "x86_64-linux";
     sshUser  = "hugosenari";
     sshKey   = "/home/hugosenari/.ssh/id_ecdsa-cert.pub";
