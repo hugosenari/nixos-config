@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  imports = [ ./nix.desktop.nix ];
   environment.systemPackages = [
     pkgs.bluez
     pkgs.bluez-tools
