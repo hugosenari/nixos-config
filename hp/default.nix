@@ -6,4 +6,8 @@
   users.users.hugosenari.description  = "hugosenari";
   users.users.hugosenari.extraGroups  = [ "networkmanager" "wheel" ];
   security.sudo.wheelNeedsPassword = false;
+  nix.sshServe.enable = true;
+  nix.sshServe.write = true;
+  nix.sshServe.trusted = true;
+  nix.sshServe.protocol = "ssh-ng";
 }
