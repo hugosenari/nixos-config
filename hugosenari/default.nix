@@ -23,7 +23,7 @@
       -D $LIBTMP2_PATH \
       -V -2h:+2h \
       -I "$(hostname)" \
-      -n $USER \
+      -n nix-ssh,$USER \
       -z 1 \
       /home/hugosenari/.ssh/id_ecdsa.pub
   '';
