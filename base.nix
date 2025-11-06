@@ -52,6 +52,5 @@
   i18n.extraLocaleSettings.LC_TIME           = "pt_BR.UTF-8";
   services.interception-tools.plugins = [ pkgs.interception-tools-plugins.caps2esc ];
   services.interception-tools.enable  = true;
-  home-manager.useGlobalPkgs          = true;
   home-manager.useUserPackages        = true;
 }

@@ -14,10 +14,8 @@ in {
   nix.registry.nixpkgs.to.type     = "github";
   nixpkgs.config.allowUnfree       = true;
   nix.settings.auto-optimise-store = true;
-  nix.settings.substituters        = [ "https://numtide.cachix.org" ];
   nix.settings.trusted-users       = [ "root" "hugosenari" "@nixbld" ];
   nix.settings.trusted-public-keys = [ 
-    "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
     "cache.ka.gy-1:eBtYnEQTdI34kRm3+Vo7+IwmumWGITyi67rYjUh91aY="
   ];
   nix.extraOptions = ''
@@ -32,5 +30,5 @@ in {
   system.autoUpgrade.dates  = "*-*-* *:20:00";  # try upgrade every 20min, nothing is done if no change
   system.autoUpgrade.flags  = ["--refresh"];    # no repo cache for upgrade
   system.autoUpgrade.flake  = "github:hugosenari/nixos-config#${config.networking.hostName}"; # source
-  system.autoUpgrade.randomizedDelaySec = "5m";    # prevents all machine to upgrade at exactly same time
+  system.autoUpgrade.randomizedDelaySec = "5m"; # prevents all machine to upgrade at exactly same time
 }
