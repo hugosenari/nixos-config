@@ -12,11 +12,11 @@
     # evoluntary modules
     homeModules.envoluntary.imports   = [ 
       inputs.envoluntary.homeModules.default
-      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; }
+      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; })
     ];
     nixosModules.envoluntary.imports = [
       inputs.envoluntary.nixosModules.default
-      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; }
+      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; })
     ];
 
     # user home-manager cfg
