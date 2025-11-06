@@ -4,12 +4,18 @@
   inputs."v25_05".url = "github:NixOS/nixpkgs/release-25.05";
   inputs."h25_05".url = "github:nix-community/home-manager/release-25.05";
   inputs."h25_05".inputs.nixpkgs.follows = "v25_05";
+  inputs.envoluntary.url = "github:dfrankland/envoluntary";
+  inputs.envoluntary.inputs.nixpkgs.follows = "v25_05";
+  inputs.envoluntary.inputs.home-manager.follows = "h25_05";
 
   outputs = inputs: rec {
 
 
     # user home-manager cfg
-    homeModules.I.imports   = [ ./hugosenari/home-manager ];
+    homeModules.e.imports   = [ inputs.envoluntary.homeModules.default {
+	programs.envoluntary.package = inputs.envoluntary.packages.x86_64-linux.default;
+    } ];
+    homeModules.I.imports   = [ ./hugosenari/home-manager homeModules.e ];
     homeModules.D.imports   = [ homeModules.I ./hugosenari/home-manager/desktop.nix ];
 
     # user cfg
