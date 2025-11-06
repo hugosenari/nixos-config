@@ -9,12 +9,19 @@
   inputs.envoluntary.inputs.home-manager.follows = "h25_05";
 
   outputs = inputs: rec {
-    # user home-manager cfg
-    homeModules.e.imports   = [ 
+    # evoluntary modules
+    homeModules.envoluntary.imports   = [ 
       inputs.envoluntary.homeModules.default
-      { programs.envoluntary.package = inputs.envoluntary.packages.x86_64-linux.default; }
+      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; }
     ];
-    homeModules.I.imports   = [ ./hugosenari/home-manager homeModules.e ];
+    nixosModules.envoluntary.imports = [
+      inputs.envoluntary.nixosModules.default
+      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; }
+    ];
+
+    # user home-manager cfg
+
+    homeModules.I.imports   = [ ./hugosenari/home-manager homeModules.envoluntary ];
     homeModules.D.imports   = [ homeModules.I ./hugosenari/home-manager/desktop.nix ];
 
     # user cfg
