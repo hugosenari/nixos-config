@@ -32,4 +32,11 @@ in
   programs.ssh.compression           = true;
   services.kbfs.enable               = true;
   services.keybase.enable            = true;
+  programs.envoluntary.enable        = true;
+  programs.envoluntary.config.entries= [
+    {
+      pattern = "~/Downloads";
+      flake_reference = "github:NixOS/templates/30a6f18?dir=rust";
+    }
+  ];
 }
