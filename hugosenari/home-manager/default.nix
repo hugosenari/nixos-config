@@ -35,7 +35,7 @@ in
   programs.envoluntary.enable        = true;
   programs.envoluntary.config.entries= [
     {
-      pattern = "~/Downloads";
+      pattern = "~/Downloads/";
       flake_reference = "github:NixOS/templates/30a6f18?dir=rust";
     }
   ];
