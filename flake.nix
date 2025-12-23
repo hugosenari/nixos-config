@@ -1,12 +1,12 @@
 {
   description     = "Hugosenari Hosts";
 
-  inputs."v25_05".url = "github:NixOS/nixpkgs/release-25.05";
-  inputs."h25_05".url = "github:nix-community/home-manager/release-25.05";
-  inputs."h25_05".inputs.nixpkgs.follows = "v25_05";
+  inputs."v25_11".url = "github:NixOS/nixpkgs/release-25.11";
+  inputs."h25_11".url = "github:nix-community/home-manager/release-25.11";
+  inputs."h25_11".inputs.nixpkgs.follows = "v25_11";
   inputs.envoluntary.url = "github:dfrankland/envoluntary";
-  inputs.envoluntary.inputs.nixpkgs.follows = "v25_05";
-  inputs.envoluntary.inputs.home-manager.follows = "h25_05";
+  inputs.envoluntary.inputs.nixpkgs.follows = "v25_11";
+  inputs.envoluntary.inputs.home-manager.follows = "h25_11";
 
   outputs = inputs: rec {
     # evoluntary modules
@@ -34,14 +34,10 @@
     nixosModules.de.imports = [ ./desktop.nix ];
 
     # nixos machines cfg
-    nixosModules.hp.imports = [ nixosModules.os nixosModules.me ./hp ];
-    nixosModules.bo.imports = [ nixosModules.os nixosModules.me ./bo nixosModules.de ];
     nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 nixosModules.de ];
     
     # nixos machines entry points (used by nixos-rebuild command)
-    nixosConfigurations.hp  = lib.os "25_05" nixosModules.hp homeModules.I;
-    nixosConfigurations.bo  = lib.os "25_05" nixosModules.bo homeModules.D;
-    nixosConfigurations.t1  = lib.os "25_05" nixosModules.t1 homeModules.D;
+    nixosConfigurations.t1  = lib.os "25_11" nixosModules.t1 homeModules.D;
 
     lib.os = version: cfg: hm-cfg: inputs."v${version}".lib.nixosSystem {
       system  = "x86_64-linux";
