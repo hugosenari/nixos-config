@@ -13,7 +13,7 @@
   ];
   home.packages = [
     pkgs.keybase-gui
-    pkgs.tdesktop
+    pkgs.telegram-desktop
     pkgs.xclip
   ]; 
 }
