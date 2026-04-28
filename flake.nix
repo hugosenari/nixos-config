@@ -1,26 +1,13 @@
 {
-  description     = "Hugosenari Hosts";
+  description = "Hugosenari Hosts";
 
   inputs.v25_11.url = "github:NixOS/nixpkgs/release-25.11";
   inputs.h25_11.url = "github:nix-community/home-manager/release-25.11";
   inputs.h25_11.inputs.nixpkgs.follows = "v25_11";
-  inputs.envoluntary.url = "github:dfrankland/envoluntary";
-  inputs.envoluntary.inputs.nixpkgs.follows = "v25_11";
-  inputs.envoluntary.inputs.home-manager.follows = "h25_11";
 
   outputs = inputs: rec {
-    # evoluntary modules
-    homeModules.envoluntary.imports   = [ 
-      inputs.envoluntary.homeModules.default
-      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; })
-    ];
-    nixosModules.envoluntary.imports = [
-      inputs.envoluntary.nixosModules.default
-      ({pkgs, ...}: { programs.envoluntary.package = inputs.envoluntary.packages.${pkgs.system}.default; })
-    ];
-
     # user home-manager cfg
-    homeModules.I.imports   = [ ./hugosenari/home-manager homeModules.envoluntary ];
+    homeModules.I.imports   = [ ./hugosenari/home-manager ];
     homeModules.D.imports   = [ homeModules.I ./hugosenari/home-manager/desktop.nix ];
 
     # user cfg
