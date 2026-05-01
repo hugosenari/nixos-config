@@ -52,4 +52,5 @@
   services.interception-tools.plugins = [ pkgs.interception-tools-plugins.caps2esc ];
   services.interception-tools.enable  = true;
   home-manager.useUserPackages        = true;
+  hardware.uinput.enable = true;
 }
