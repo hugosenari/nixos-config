@@ -14,7 +14,7 @@ let
   kbp        = suffix: { replace = "{{output}}"; vars = resultOf ["${bin}/kbpass" "get"  suffix]; };
   bin        = "/etc/profiles/per-user/hugosenari/bin";
   triggers   = mapToList "trigger" {
-    "119".replace    = "11981498025";
+    "11-9".replace    = "11981498025";
     "pss+".replace   = "R4nd0m20O0@pa$S"; # std pass for tests
     "fulano".replace = "fulano da silva sauro";
 
@@ -37,7 +37,6 @@ let
     "hugosenari+".replace = "hugosenari+{{output}}@gmail.com";
     "hugosenari+".vars    = now "%Y%m%d%H";
 
-    "otpaltice"           = otp "altice";
     "otpbinance"          = otp "binance";
     "otpcoinbase"         = otp "coinbase";
     "otpcoinbebe"         = otp "coinbebe";

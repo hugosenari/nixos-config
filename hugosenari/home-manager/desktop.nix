@@ -8,6 +8,8 @@
     { package = pkgs.gnomeExtensions.gsconnect; }
     { package = pkgs.gnomeExtensions.nasa-apod; }
   ];
+  programs.gnome-shell.theme.name = "";
+  programs.gnome-shell.theme.package = pkgs.plata-theme;
   home.packages = [
     pkgs.keybase-gui
     pkgs.telegram-desktop
