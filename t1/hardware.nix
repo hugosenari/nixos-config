@@ -17,7 +17,6 @@
 
   swapDevices = [ {device = "/dev/disk/by-uuid/27f9acb9-18f5-4b50-b780-1809562879d7";} ];
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor    = "powersave";
   hardware.cpu.intel.updateMicrocode = true;
   hardware.bluetooth.enable          = true;

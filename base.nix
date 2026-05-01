@@ -27,7 +27,6 @@
   programs.neovim.vimAlias     = true;      # you say vim I say neovim
   security.rtkit.enable        = true;      # process priority
   services.printing.enable     = false;     # prevents Amazon Deforestation
-  services.logind.lidSwitchExternalPower = "ignore"; # do not suspend when lid close
   environment.systemPackages   = [          # other programs available in path
     pkgs.inetutils
     pkgs.lshw
