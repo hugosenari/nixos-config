@@ -27,16 +27,7 @@ in
   programs.home-manager.enable       = true;
   programs.htop.enable               = true;
   programs.jq.enable                 = true;
-  programs.nushell.enable            = true;
   programs.ssh.enable                = true;
-  programs.ssh.compression           = true;
   services.kbfs.enable               = true;
   services.keybase.enable            = true;
-  programs.envoluntary.enable        = true;
-  programs.envoluntary.config.entries= [
-    {
-      pattern = "~/Downloads/";
-      flake_reference = "github:NixOS/templates/30a6f18?dir=rust";
-    }
-  ];
 }
