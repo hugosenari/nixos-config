@@ -57,4 +57,5 @@ let
 in {
   services.espanso.enable = true;
   services.espanso.matches.base.matches = triggers;
+  services.espanso.configs.show_notifications = false;
 }
