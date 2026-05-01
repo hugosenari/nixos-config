@@ -1,44 +1,42 @@
 {
   "nodes": {
-    "h25_11": {
+    "h26_05": {
       "inputs": {
         "nixpkgs": [
-          "v25_11"
+          "v26_05"
         ]
       },
       "locked": {
-        "lastModified": 1775425411,
-        "narHash": "sha256-KY6HsebJHEe5nHOWP7ur09mb0drGxYSzE3rQxy62rJo=",
+        "lastModified": 1777594677,
+        "narHash": "sha256-h90sHwoRJLRvaTpZroTvU2JRHDFj0czUafM8eqLe1RI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0d02ec1d0a05f88ef9e74b516842900c41f0f2fe",
+        "rev": "899c08a15beae5da51a5cecd6b2b994777a948da",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
-        "h25_11": "h25_11",
-        "v25_11": "v25_11"
+        "h26_05": "h26_05",
+        "v26_05": "v26_05"
       }
     },
-    "v25_11": {
+    "v26_05": {
       "locked": {
-        "lastModified": 1777596055,
-        "narHash": "sha256-T1FSmF0wXADL3lCwYNj6Pcom4m1+sWsXzmG5pzINyBI=",
+        "lastModified": 1777601808,
+        "narHash": "sha256-lao6z7M7YUGdkZ7BbihNrx7Lo2glPmvpbUzPL0nJ4XY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "88bdde942ae27b223623a5125f0ef6eb680fbc85",
+        "rev": "3441dd1f4828581ab10f5df9815825bda054b16a",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "release-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }

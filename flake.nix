@@ -1,9 +1,9 @@
 {
   description = "Hugosenari Hosts";
 
-  inputs.v25_11.url = "github:NixOS/nixpkgs/release-25.11";
-  inputs.h25_11.url = "github:nix-community/home-manager/release-25.11";
-  inputs.h25_11.inputs.nixpkgs.follows = "v25_11";
+  inputs.v26_05.url = "github:NixOS/nixpkgs";
+  inputs.h26_05.url = "github:nix-community/home-manager";
+  inputs.h26_05.inputs.nixpkgs.follows = "v26_05";
 
   outputs = inputs: rec {
     # user home-manager cfg
@@ -23,7 +23,7 @@
     nixosModules.t1.imports = [ nixosModules.os nixosModules.me ./t1 nixosModules.de ];
     
     # nixos machines entry points (used by nixos-rebuild command)
-    nixosConfigurations.t1  = lib.os "25.11" nixosModules.t1 homeModules.D;
+    nixosConfigurations.t1  = lib.os "26.05" nixosModules.t1 homeModules.D;
 
     lib.os = version: cfg: hm-cfg: inputs."v${lib.v2i version}".lib.nixosSystem {
       system  = "x86_64-linux";
