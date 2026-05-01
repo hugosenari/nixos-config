@@ -1,7 +1,7 @@
 {
   programs.git.enable    = true;
   programs.git.ignores   = [ "~/.gitignore_global" ];
-  programs.git.userName  = "hugosenari";
-  programs.git.userEmail = "hugosenari@gmail.com";
-  programs.git.aliases.s = "status - s";
+  programs.git.settings.user.name  = "hugosenari";
+  programs.git.settings.user.email = "hugosenari@gmail.com";
+  programs.git.settings.alias.s = "status -s";
 }
