@@ -54,7 +54,7 @@ let
     "kbpght"  = kbp "github-token";
   };
 in {
-  services.espanso.enable = true;
+  services.espanso.enable = false;
   services.espanso.matches.base.matches = triggers;
   services.espanso.configs.base.show_notifications = false;
 }
