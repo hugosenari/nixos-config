@@ -7,6 +7,7 @@
     { package = pkgs.gnomeExtensions.pano; }
     { package = pkgs.gnomeExtensions.gsconnect; }
     { package = pkgs.gnomeExtensions.nasa-apod; }
+    { package = pkgs.gnomeExtensions.gjs-osk;   }
   ];
   programs.gnome-shell.theme.name = "";
   programs.gnome-shell.theme.package = pkgs.plata-theme;
