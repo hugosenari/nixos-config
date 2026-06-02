@@ -1,7 +1,7 @@
 {
   description = "Hugosenari Hosts";
 
-  inputs.v26_05.url = "github:NixOS/nixpkgs";
+  inputs.v26_05.url = "github:NixOS/nixpkgs/nixos-26.05";
   inputs.h26_05.url = "github:nix-community/home-manager";
   inputs.h26_05.inputs.nixpkgs.follows = "v26_05";
 
